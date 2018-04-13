@@ -7,7 +7,8 @@ function CharacterClass:loadSprites()
 	end
 end
 
-function CharacterClass:moveCharacter(direction, dt)
+function CharacterClass:moveCharacter(dt)
+	local direction = self.OverMove
 	if direction == 'up' then self:moveCharUp(dt)
 	elseif direction == 'down' then self:moveCharDown(dt)
 	elseif direction == 'left' then self:moveCharLeft(dt)
@@ -203,4 +204,31 @@ function CharacterClass:GetFrame()
 	local frame = ((self.Px % 40 + self.Py % 40)/4) - (((self.Px % 40 + self.Py % 40)/4) %1)
 	frame = frame + 1 + (self.Facing-1)*10
 	return frame
+end
+
+function CharacterClass:MoveToSpot(x,y)
+	self.Path = PathFindingAStar(self.Pxgrid, self.Pygrid+1, x, y)
+	if self.Path then table.remove(self.Path, endtb) end
+end
+
+function CharacterClass:followPath()
+	local path = self.Path or {}
+	local endtb = table.getn(path)
+	
+	if endtb > 0 and self.OverMove == "none" then
+		if path[endtb].x < self.Pxgrid then
+			self.Facing = 4
+			self.OverMove = 'left'
+		elseif path[endtb].x > self.Pxgrid then
+			self.Facing = 2
+			self.OverMove = 'right'
+		elseif path[endtb].y < self.Pygrid+1 then
+			self.Facing = 3
+			self.OverMove = 'up'
+		elseif path[endtb].y > self.Pygrid+1 then
+			self.Facing = 1
+			self.OverMove = 'down'
+		end
+		table.remove(path, endtb)
+	end
 end

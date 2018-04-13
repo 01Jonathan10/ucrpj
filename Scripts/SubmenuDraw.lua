@@ -47,8 +47,4 @@ function OptionsDraw()
 	end
 	love.graphics.draw(Selecao, 370+630*(Menu.MasterV/100), 380)
 	love.graphics.setColor(255,255,255)
-
-	if Menu.FullScreen then
-		love.graphics.draw(Selecao, 975, 765)
-	end
 end

@@ -44,7 +44,9 @@ function NPC.create(Pxgrid, Pygrid, behavior, MapNo)
 end
 
 function NPC:BehaviorCall(dt)
-	Behaviors[self.Behavior](self, dt)
+	if not self.Path then
+		Behaviors[self.Behavior](self, dt)
+	end
 end
 
 function ClearNPCs(MapNo)

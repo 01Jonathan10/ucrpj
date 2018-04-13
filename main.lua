@@ -24,10 +24,6 @@ function love.keypressed (key)
 			NewCharacter.Name = string.sub(NewCharacter.Name, 1, string.len(NewCharacter.Name) - 1)
 		end
 	end
-	
-	if key=="y" then
-		Camera:SetCameraYPosition(Player)
-	end
 end
 
 function love.textinput (text)
@@ -68,6 +64,7 @@ function love.draw(dt)
 	
 	drawInGame()
 		
+	love.graphics.print('Memory actually used (in kB): ' .. collectgarbage('count'), 10,10)
 end
 
 function love.quit()

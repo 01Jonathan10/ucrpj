@@ -41,9 +41,7 @@ function SubOptionsUpdate(dt)
 		GMenu.SelectMenu = GMenu.SelectMenu - 1
 	elseif KeyList[2] and not GMenu.VControl then
 		if GMenu.SelectMenu == 2 then
-			MyLib.KeyRefresh()
-			GMenu.FullScreen = not GMenu.FullScreen
-			love.window.setFullscreen(GMenu.FullScreen)
+
 		elseif GMenu.SelectMenu == 3 then
 			GMenu.SelectMenu = 5
 			GMenu.Submenu = nil

@@ -38,8 +38,4 @@ function SubOptionsDraw()
 	end
 	love.graphics.draw(Selecao, 370+630*(GMenu.MasterV/100), 380)
 	love.graphics.setColor(255,255,255)
-
-	if GMenu.FullScreen then
-		love.graphics.draw(Selecao, 975, 765)
-	end
 end

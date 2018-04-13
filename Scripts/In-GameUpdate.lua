@@ -45,8 +45,6 @@ function PauseMenu(dt)
 					GMenu.Submenu = GMenu.SelectMenu
 					
 					if GMenu.Submenu == 5 then
-						local FullScreen, _ = love.window.getFullscreen()
-						GMenu.FullScreen = FullScreen
 						GMenu.MasterV = 100*love.audio.getVolume()
 						GMenu.VControl = true
 					end
@@ -128,10 +126,12 @@ end
 function UpdateNPCs(dt)
 	for _, eachNPC in pairs(SceneNPCs[Map.Number]) do
 		eachNPC:BehaviorCall(dt)
-		eachNPC:moveCharacter(eachNPC.OverMove, dt)
+		eachNPC:followPath()
+		eachNPC:moveCharacter(dt)
 	end
 end
 
 function UpdatePlayer(dt)
-	Player:moveCharacter(Player.OverMove, dt)
+	Player:followPath()
+	Player:moveCharacter(dt)
 end

@@ -46,10 +46,8 @@ function loadSaveFiles()
 end
 
 function SaveUserData()
-	local FullScreen, _ = love.window.getFullscreen()
 	local FileText = ""
 	FileText = FileText .. "return{\n"
-	FileText = FileText .. "FullScreen = "..tostring(FullScreen)..",\n"
 	FileText = FileText .. "MasterV = "..tostring(love.audio.getVolume()*100)..",\n"
 	FileText = FileText .. "}"
 	
@@ -62,11 +60,11 @@ function LoadUserData()
 		UserData = love.filesystem.load("Userdata.lua")()
 	else
 		UserData = {
-			FullScreen = false,
 			MasterV = 100,
+			Scale = 1,
 		}
 	end
 	
-	love.window.setFullscreen(UserData.FullScreen)
 	love.audio.setVolume(UserData.MasterV/100)
+	-- love.window.setMode(1920/UserData.Scale, 1080/UserData.Scale)
 end

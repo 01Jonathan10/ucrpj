@@ -1,9 +1,11 @@
 -- Configuration
 function love.conf(t)
-	t.title = "UCRPJ Teste"     -- The title of the window the game is in (string)
-	t.window.width = 800        -- we want our game to be long and thin.
+	t.title = "UCRPJ Teste"
+	t.window.width = 800
 	t.window.height = 600
+	
+	t.modules.joystick = false
+    t.modules.physics = false
 
-	-- For Windows debugging
 	t.console = true
 end

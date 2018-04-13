@@ -37,7 +37,6 @@ end
 
 function SetupMenu(Select)
 	local Select = Select or 1
-	local FullScreen, _ = love.window.getFullscreen()
 	return {
 		Submenu = 0, 
 		SelectMenu = Select, 
@@ -46,7 +45,6 @@ function SetupMenu(Select)
 		TypingName = false,
 		MasterV = 100*love.audio.getVolume(),
 		VControl = true,
-		FullScreen = FullScreen,
 		Changing = nil,
 	}
 end
