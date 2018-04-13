@@ -230,5 +230,6 @@ function CharacterClass:followPath()
 			self.OverMove = 'down'
 		end
 		table.remove(path, endtb)
+		if endtb == 1 then triggerEvent() self.Path = nil end
 	end
 end

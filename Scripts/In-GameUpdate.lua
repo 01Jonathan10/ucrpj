@@ -4,20 +4,13 @@ function DialogUpdate()
 	if Player.CurrentDialog then						-- Dentro de diálogo
 		if KeyList[2] then
 			Player.CurrentDialog.count = Player.CurrentDialog.count + 1
-			if Player.CurrentDialog.content[Player.CurrentDialog.count] ~= nil then
-				while (Player.CurrentDialog.content[Player.CurrentDialog.count].value:sub(1,8) == "LuaCall>") do
-					loadstring(Player.CurrentDialog.content[Player.CurrentDialog.count].value:sub(9))()
-					Player.CurrentDialog.count = Player.CurrentDialog.count + 1
-					if Player.CurrentDialog.content[Player.CurrentDialog.count] == nil then break end
-				end
-				if Player.CurrentDialog.content[Player.CurrentDialog.count] == nil then
-					for _, eachChar in pairs(Player.CurrentDialog.characters) do eachChar.Locked = false end
-					Player.CurrentDialog = nil
-				end
-			else
+			
+			if Player.CurrentDialog.content[Player.CurrentDialog.count] == nil then
 				for _, eachChar in pairs(Player.CurrentDialog.characters) do eachChar.Locked = false end
 				Player.CurrentDialog = nil
+				triggerEvent()
 			end
+			
 			MyLib.KeyRefresh()
 		end
 	end
@@ -134,4 +127,19 @@ end
 function UpdatePlayer(dt)
 	Player:followPath()
 	Player:moveCharacter(dt)
+end
+
+function beginEvent(event)
+	Map.EventQueue = {}
+	for key, eachEvent in ipairs(event.queue) do Map.EventQueue[key] = eachEvent end
+	triggerEvent()
+end
+
+function triggerEvent()
+	if Map.EventQueue then
+		event = Map.EventQueue[1]
+		table.remove(Map.EventQueue, 1)
+		if table.getn(Map.EventQueue) == 0 then Map.EventQueue = nil end
+		event()
+	end
 end

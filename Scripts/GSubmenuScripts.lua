@@ -48,5 +48,4 @@ function SubOptionsUpdate(dt)
 			MyLib.KeyRefresh()
 		end
 	end
-	
 end

@@ -32,7 +32,7 @@ function PlayerClass:Interact()
 	local event = getEvent(coord)
 	
 	if event then
-		event()
+		if event.method == "Check" then beginEvent(event) end
 	elseif hasCharacter(coord) then
 		self:StartDialogChar(Map.CharacterPos[coord.y][coord.x])
 	else
