@@ -45,6 +45,9 @@ MyLib.KeyPress(btn)
 MyLib.KeyRefresh()
 *clears all keyboard variables (Uses KeyList). Put on end of love.update
 
+MyLib.KeyRefresh()
+*Calls love.keyboard.isDown(), but checking also MyLib.lockControls
+
 ]]--
 
 --#######################################--

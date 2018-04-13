@@ -1,7 +1,8 @@
 return {
 	[1] = {
+		id = 1,
 		method = "Check",
-		single = false,
+		single = true,
 		queue = { 
 			function() 
 				local content = {{value="Essa é uma máquina de doces", isPlayer=true}, 
@@ -20,18 +21,20 @@ return {
 		}
 	},
 	[2] = {
+		id = 2,
 		method = "Walk",
 		single = true,
 		queue = { 
 			function() 
-				local content = {{value="Ah, vou embora daqui...", isPlayer=true}}
+				local content = {{value="Urgh, que nojo.", isPlayer=true}}
 				Player:StartDialog(content)
 			end,
 			function() 
-				Player:MoveToSpot(12,9)
+				Player.Speed = 15
+				Player:MoveToSpot(12,10)
 			end,
 			function() 
-				local content = {{value="Aquele lugar ficou muito chato...", isPlayer=true}}
+				local content = {{value="Aquele lugar é um chiqueiro...", isPlayer=true}}
 				Player:StartDialog(content)
 			end,
 		}

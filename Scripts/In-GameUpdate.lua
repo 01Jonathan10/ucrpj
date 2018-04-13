@@ -79,29 +79,29 @@ function PauseControls()
 end
 
 function MovementControls()
-	if Player.OverMove == 'none' then
-		if love.keyboard.isDown('rshift','lshift') then
+	if Player.OverMove == 'none' and not MyLib.lockControls then
+		if MyLib.isKeyDown('rshift','lshift') then
 			Player.Speed = 10
 		else
 			Player.Speed = 5
 		end	
 	end
-	if love.keyboard.isDown('down','s') and Player.OverMove == 'none' then
+	if MyLib.isKeyDown('down','s') and Player.OverMove == 'none' then
 		Player.Facing = 1
 		if CanMove(Player:RelativeCharacterCoordinates(0,1)) then
 			Player:MoveSquare('down')
 		end
-	elseif love.keyboard.isDown('right','d') and Player.OverMove == 'none' then
+	elseif MyLib.isKeyDown('right','d') and Player.OverMove == 'none' then
 		Player.Facing = 2
 		if CanMove(Player:RelativeCharacterCoordinates(1,0)) then
 			Player:MoveSquare('right')
 		end
-	elseif love.keyboard.isDown('up','w') and Player.OverMove == 'none' then
+	elseif MyLib.isKeyDown('up','w') and Player.OverMove == 'none' then
 		Player.Facing = 3
 		if CanMove(Player:RelativeCharacterCoordinates(0,-1)) then
 			Player:MoveSquare('up')
 		end
-	elseif love.keyboard.isDown('left','a') and Player.OverMove == 'none' then
+	elseif MyLib.isKeyDown('left','a') and Player.OverMove == 'none' then
 		Player.Facing = 4
 		if CanMove(Player:RelativeCharacterCoordinates(-1,0)) then
 			Player:MoveSquare('left')
@@ -133,6 +133,7 @@ function beginEvent(event)
 	Map.EventQueue = {}
 	for key, eachEvent in ipairs(event.queue) do Map.EventQueue[key] = eachEvent end
 	triggerEvent()
+	if event.single then Player.ClearedEvents[event.id] = true end
 end
 
 function triggerEvent()

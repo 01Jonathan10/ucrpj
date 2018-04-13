@@ -16,6 +16,7 @@ function PlayerClass.create(Pxgrid, Pygrid, args, SaveSlot)
 		OverMove = 'none',
 		Inventory = {contents = {}, limit = 10},
 		SaveSlot = SaveSlot,
+		ClearedEvents = {}
 	}
 	
 	Utils.mergeTables(player,args)
@@ -32,7 +33,10 @@ function PlayerClass:Interact()
 	local event = getEvent(coord)
 	
 	if event then
-		if event.method == "Check" then beginEvent(event) end
+		if event.method == "Check" then 
+			beginEvent(event) 
+			if event.single then lockEvent(coord) end
+		end
 	elseif hasCharacter(coord) then
 		self:StartDialogChar(Map.CharacterPos[coord.y][coord.x])
 	else

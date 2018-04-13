@@ -23,6 +23,7 @@ function SaveCharacter(SavingChar)
 	FileText = FileText .. "clothesBot = "..SavingChar.clothesBot..",\n"
 	FileText = FileText .. "Inventory = "..Utils.table_to_string(SavingChar.Inventory)..",\n"
 	FileText = FileText .. "MetaData = "..Utils.table_to_string(MetaData)..",\n"
+	FileText = FileText .. "ClearedEvents = "..Utils.table_to_string(SavingChar.ClearedEvents)..",\n"
 	FileText = FileText .. "}"
 	
 	love.filesystem.write("Save00"..SavingChar.SaveSlot..".lua", FileText)

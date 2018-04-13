@@ -50,3 +50,10 @@ function MyLib.KeyRefresh()
 	end
 
 end
+
+function MyLib.isKeyDown(...)
+	if not MyLib.lockControls then
+		return love.keyboard.isDown(...)
+	end
+	return false
+end

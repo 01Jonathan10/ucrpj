@@ -9,6 +9,7 @@ end
 
 function CharacterClass:moveCharacter(dt)
 	local direction = self.OverMove
+	local ended = false
 	if direction == 'up' then self:moveCharUp(dt)
 	elseif direction == 'down' then self:moveCharDown(dt)
 	elseif direction == 'left' then self:moveCharLeft(dt)
@@ -87,6 +88,22 @@ function CharacterClass:DoneMoving()
 	if self ~= Player then
 		self.Timer = 0
 		self.TimerLimit = math.random()*5
+	else
+		local coord = {x=Player.Pxgrid, y=Player.Pygrid+1}
+		local event = getEvent(coord)
+		if event then
+			if event.method == "Walk" then 
+				beginEvent(event) 
+				if event.single then lockEvent(coord) end
+			end
+		end
+	end
+	
+	local path = self.Path or {}
+	if self.Path and table.getn(path) == 0 then
+		triggerEvent() 
+		self.Path = nil
+		if self == Player then MyLib.lockControls = false end
 	end
 end
 
@@ -207,6 +224,7 @@ function CharacterClass:GetFrame()
 end
 
 function CharacterClass:MoveToSpot(x,y)
+	MyLib.lockControls = true
 	self.Path = PathFindingAStar(self.Pxgrid, self.Pygrid+1, x, y)
 	if self.Path then table.remove(self.Path, endtb) end
 end
@@ -230,6 +248,5 @@ function CharacterClass:followPath()
 			self.OverMove = 'down'
 		end
 		table.remove(path, endtb)
-		if endtb == 1 then triggerEvent() self.Path = nil end
 	end
 end

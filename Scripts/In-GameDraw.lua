@@ -61,5 +61,5 @@ function drawInteraction(Character)
 	end
 	
 	dialogChar:DrawCharacterPortrait(30, 856)
-	love.graphics.print(current.value,480,1020,0,1,1,0,0)
+	love.graphics.printf(current.value,480,1020, 1020)
 end

@@ -79,3 +79,28 @@ function Utils.table_to_string(tbl)
     end
     return result.."}"
 end
+
+function string:split(separator, isRegex, nMax)
+	local separator = separator or " "
+	local isRegex = isRegex or false
+	local nMax = nMax or -1
+
+    local aRecord = {}
+
+    if self:len() > 0 then
+		local isPlain = not isRegex
+
+		local nField, nStart = 1, 1
+		local nFirst,nLast = self:find(separator, nStart, isPlain)
+		while nFirst and nMax ~= 0 do
+			aRecord[nField] = self:sub(nStart, nFirst-1)
+			nField = nField+1
+			nStart = nLast+1
+			nFirst,nLast = self:find(separator, nStart, isPlain)
+			nMax = nMax-1
+        end
+        aRecord[nField] = self:sub(nStart)
+    end
+
+   return aRecord
+end

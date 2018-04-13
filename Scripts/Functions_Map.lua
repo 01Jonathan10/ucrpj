@@ -60,7 +60,7 @@ function readMapDialog(MapNo)
 			DialogsChk[tostring(ObjId)] = {}
 		else
 			DialogsChk[tostring(ObjId)][lineId] = {}
-			DialogsChk[tostring(ObjId)][lineId].value = string.sub(line, 6)
+			DialogsChk[tostring(ObjId)][lineId].value = line:split(">",false,1)[2]
 			DialogsChk[tostring(ObjId)][lineId].isPlayer = true
 			DialogsChk[tostring(ObjId)][lineId+1] = nil
 			lineId = lineId + 1
@@ -93,7 +93,9 @@ function PlaceEventsChars(MapNo)
 			MapMeta.Exits[line[1]] = {line[2], line[3], line[4]}
 		elseif line[1]:sub(1,1)=='V' then
 			local index = tonumber(line[1]:sub(2))
-			Map.Events[line[2].."-"..line[3]] = MapEvents[index]
+			if not Player.ClearedEvents[MapEvents[index].id] then
+				Map.Events[line[2].."-"..line[3]] = MapEvents[index]
+			end
 		elseif line[1]:sub(1,1)=='C' and DidClear then
 			NPC.create(line[2], line[3], line[4], MapNo)
 		end

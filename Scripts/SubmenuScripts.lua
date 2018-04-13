@@ -133,11 +133,11 @@ function OptionsMenuUpdate(dt)
 	EscGoesTo(0,2)
 	love.audio.setVolume(Menu.MasterV/100)
 
-	if love.keyboard.isDown('right','d') and Menu.VControl then
+	if MyLib.isKeyDown('right','d') and Menu.VControl then
 		if Menu.MasterV < 100 then
 			Menu.MasterV = Menu.MasterV + 60*dt
 		end
-	elseif love.keyboard.isDown('left','a') and Menu.VControl then
+	elseif MyLib.isKeyDown('left','a') and Menu.VControl then
 		if Menu.MasterV > 0 then
 			Menu.MasterV = Menu.MasterV - 60*dt
 		end

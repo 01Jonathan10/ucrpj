@@ -18,14 +18,14 @@ function drawInGame()
 end
 
 function inGameUpdate(dt)
-
-	OverWorldEvents()
 	
 	OverWorldControls()
 	
 	UpdatePlayer(dt)
 	
 	UpdateNPCs(dt)
+	
+	OverWorldEvents()
 	
 	PauseMenu(dt)
 		

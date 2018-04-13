@@ -25,11 +25,11 @@ function SubOptionsUpdate(dt)
 	GMenu.SelectMenu = GMenu.SelectMenu % 4
 	GMenu.VControl = (GMenu.SelectMenu == 0)
 
-	if love.keyboard.isDown('right','d') and GMenu.VControl then
+	if MyLib.isKeyDown('right','d') and GMenu.VControl then
 		if GMenu.MasterV < 100 then
 			GMenu.MasterV = GMenu.MasterV + 60*dt
 		end
-	elseif love.keyboard.isDown('left','a') and GMenu.VControl then
+	elseif MyLib.isKeyDown('left','a') and GMenu.VControl then
 		if GMenu.MasterV > 0 then
 			GMenu.MasterV = GMenu.MasterV - 60*dt
 		end

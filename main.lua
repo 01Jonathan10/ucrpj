@@ -65,6 +65,7 @@ function love.draw(dt)
 	drawInGame()
 		
 	love.graphics.print('Memory actually used (in kB): ' .. collectgarbage('count'), 10,10)
+	collectgarbage('collect')
 end
 
 function love.quit()
