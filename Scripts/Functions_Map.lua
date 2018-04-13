@@ -94,7 +94,7 @@ function PlaceEventsChars(MapNo)
 		elseif line[1]:sub(1,1)=='V' then
 			local index = tonumber(line[1]:sub(2))
 			if not Player.ClearedEvents[MapEvents[index].id] then
-				Map.Events[line[2].."-"..line[3]] = MapEvents[index]
+				Map.Events[line[2].."-"..line[3]] = EventClass.create(MapEvents[index])
 			end
 		elseif line[1]:sub(1,1)=='C' and DidClear then
 			NPC.create(line[2], line[3], line[4], MapNo)

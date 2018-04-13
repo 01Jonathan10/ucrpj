@@ -90,18 +90,18 @@ function CharacterClass:DoneMoving()
 		self.TimerLimit = math.random()*5
 	else
 		local coord = {x=Player.Pxgrid, y=Player.Pygrid+1}
-		local event = getEvent(coord)
+		local event = EventClass.getEvent(coord)
 		if event then
 			if event.method == "Walk" then 
-				beginEvent(event) 
-				if event.single then lockEvent(coord) end
+				event:beginEvent() 
+				if event.single then EventClass.lockEvent(coord) end
 			end
 		end
 	end
 	
 	local path = self.Path or {}
 	if self.Path and table.getn(path) == 0 then
-		triggerEvent() 
+		EventClass.triggerEvent() 
 		self.Path = nil
 		if self == Player then MyLib.lockControls = false end
 	end

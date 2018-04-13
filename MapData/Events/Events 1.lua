@@ -12,7 +12,7 @@ return {
 			end,
 			function() 
 				Player:GainItem(2,1)
-				triggerEvent()
+				EventClass.triggerEvent()
 			end,
 			function() 
 				local content = {{value="Hmm, nem sei o sabor, vou guardar pra depois.", isPlayer=true}}

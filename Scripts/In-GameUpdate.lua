@@ -8,7 +8,7 @@ function DialogUpdate()
 			if Player.CurrentDialog.content[Player.CurrentDialog.count] == nil then
 				for _, eachChar in pairs(Player.CurrentDialog.characters) do eachChar.Locked = false end
 				Player.CurrentDialog = nil
-				triggerEvent()
+				EventClass.triggerEvent()
 			end
 			
 			MyLib.KeyRefresh()
@@ -127,20 +127,4 @@ end
 function UpdatePlayer(dt)
 	Player:followPath()
 	Player:moveCharacter(dt)
-end
-
-function beginEvent(event)
-	Map.EventQueue = {}
-	for key, eachEvent in ipairs(event.queue) do Map.EventQueue[key] = eachEvent end
-	triggerEvent()
-	if event.single then Player.ClearedEvents[event.id] = true end
-end
-
-function triggerEvent()
-	if Map.EventQueue then
-		event = Map.EventQueue[1]
-		table.remove(Map.EventQueue, 1)
-		if table.getn(Map.EventQueue) == 0 then Map.EventQueue = nil end
-		event()
-	end
 end

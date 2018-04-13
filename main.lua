@@ -7,6 +7,7 @@ require ('utils')
 
 require ('Class_Camera')
 require ('Class_Character')
+require ('Class_Event')
 require ('Class_Item')
 require ('Class_NPC')
 require ('Class_Player')

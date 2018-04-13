@@ -30,12 +30,12 @@ end
 
 function PlayerClass:Interact()
 	local coord = self:InFrontOfCoordinates()
-	local event = getEvent(coord)
+	local event = EventClass.getEvent(coord)
 	
 	if event then
 		if event.method == "Check" then 
-			beginEvent(event) 
-			if event.single then lockEvent(coord) end
+			event:beginEvent() 
+			if event.single then EventClass.lockEvent(coord) end
 		end
 	elseif hasCharacter(coord) then
 		self:StartDialogChar(Map.CharacterPos[coord.y][coord.x])
