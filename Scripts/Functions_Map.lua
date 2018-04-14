@@ -59,9 +59,7 @@ function readMapDialog(MapNo)
 			lineId = 1
 			DialogsChk[tostring(ObjId)] = {}
 		else
-			DialogsChk[tostring(ObjId)][lineId] = {}
-			DialogsChk[tostring(ObjId)][lineId].value = line:split(">",false,1)[2]
-			DialogsChk[tostring(ObjId)][lineId].isPlayer = true
+			DialogsChk[tostring(ObjId)][lineId] = {value = line:split(">",false,1)[2]}
 			DialogsChk[tostring(ObjId)][lineId+1] = nil
 			lineId = lineId + 1
 		end

@@ -17,10 +17,10 @@ function NPC.create(charArgs, MapNo)
 		Speed = 5,
 		Facing = 1,
 		
-		hair = charArgs.Hair,
-		clothesBot = charArgs.CBot,
-		face = charArgs.Face,
-		clothesTop = charArgs.CTop,
+		Hair = charArgs.Hair,
+		CBot = charArgs.CBot,
+		Face = charArgs.Face,
+		CTop = charArgs.CTop,
 		
 		Behavior = charArgs.Behavior or 0,
 		OverMove = "none",

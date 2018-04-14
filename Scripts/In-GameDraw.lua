@@ -54,7 +54,7 @@ function drawInteraction(Character)
 	local current = Player.CurrentDialog.content[Player.CurrentDialog.count]
 	local dialogChar
 	
-	if current.isPlayer then
+	if not current.characterId then
 		dialogChar = Player
 	else
 		dialogChar = GetCharacterById(current.characterId)

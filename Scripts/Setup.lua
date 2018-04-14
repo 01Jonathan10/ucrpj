@@ -18,14 +18,14 @@ loadSaveFiles()
 loadDialogs()
 
 SELECT_CUSTOM_KEYS = {
-	[1] = "hair",
-	[2] = "face",
-	[3] = "clothesTop",
-	[4] = "clothesBot"
+	[1] = "Hair",
+	[2] = "Face",
+	[3] = "CTop",
+	[4] = "CBot"
 }
 
 love.graphics.setFont(Settings.font)
 
 LoadUserData()
-Menu = SetupMenu()
+MenuClass.BuildMenu()
 Item.LoadItems()

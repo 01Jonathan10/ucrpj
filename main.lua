@@ -9,14 +9,14 @@ require ('Class_Camera')
 require ('Class_Character')
 require ('Class_Event')
 require ('Class_Item')
+require ('Class_LoadQueue')
+require ('Class_Menu')
 require ('Class_NPC')
 require ('Class_Player')
 
 require ('In-Game')
 require ('Functions')
 require ('Load')
-require ('LoadQueue')
-require ('Menu')
 require ('Setup')
 
 function love.keypressed (key)
@@ -47,9 +47,7 @@ function love.update(dt)
 		
 	QueueManagement.LoadQueue()
 		
-	if Menu then
-		menuUpdate(dt)
-	end
+	if Menu then Menu:menuUpdate(dt) end
 		
 	if OverW then
 		inGameUpdate(dt)
@@ -61,11 +59,11 @@ function love.draw(dt)
 
 	setDrawSize()
 	
-	drawMenu()
+	if Menu then Menu:drawMenu() end
 	
 	drawInGame()
 		
-	love.graphics.print('Memory actually used (in kB): ' .. collectgarbage('count'), 10,10)
+	love.graphics.print('Memory actually used (in kB): ' .. math.ceil(collectgarbage('count')), 10,10)
 	collectgarbage('collect')
 end
 

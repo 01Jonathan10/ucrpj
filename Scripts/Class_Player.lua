@@ -80,10 +80,24 @@ function PlayerClass:BlankCharacter()
 		xp = 0, 
 		level = 1, 
 		Name = '', 
-		hair = 1, 
-		face = 1, 
-		clothesTop = 1, 
-		clothesBot = 1,
+		Hair = 1, 
+		Face = 1, 
+		CTop = 1, 
+		CBot = 1,
 		MetaData = {ItemsGot = {}}
 	}
+end
+
+function PlayerClass:DoneMoving()
+	local coord = {x=self.Pxgrid, y=self.Pygrid+1}
+	local event = EventClass.getEvent(coord)
+	if event then
+		if event.method == "Walk" then 
+			event:beginEvent() 
+			if event.single then EventClass.lockEvent(coord) end
+		end
+	end
+	
+	CharacterClass.DoneMoving(self)
+	self.TimerLimit = nil
 end

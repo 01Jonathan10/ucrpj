@@ -35,10 +35,10 @@ function loadDialogs()
 				lineId = 1
 				TextData.SmallTalk[mood][dialog_id] = {}
 			else
-				TextData.SmallTalk[mood][dialog_id][lineId] = {}
-				TextData.SmallTalk[mood][dialog_id][lineId].isPlayer = (line:sub(1,1) == '1')
-				TextData.SmallTalk[mood][dialog_id][lineId].characterId = (line:sub(1,1))
-				TextData.SmallTalk[mood][dialog_id][lineId].value = string.sub(line, 6)
+				TextData.SmallTalk[mood][dialog_id][lineId] = {value = string.sub(line, 6)}
+				if not (line:sub(1,1) == '1') then
+					TextData.SmallTalk[mood][dialog_id][lineId].characterId = (line:sub(1,1))
+				end
 				TextData.SmallTalk[mood][dialog_id][lineId+1] = nil
 				lineId = lineId + 1
 			end

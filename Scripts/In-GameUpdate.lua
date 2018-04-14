@@ -32,8 +32,8 @@ function PauseMenu(dt)
 			elseif KeyList[6] and GMenu.SelectMenu % 3 ~= 1 then
 				GMenu.SelectMenu=GMenu.SelectMenu - 1
 			elseif KeyList[2] then
-				if GMenu.SelectMenu == 6 then -- Quit
-					MyLib.FadeToColor(0.3,{"LuaCall>Menu = SetupMenu()", "OverW"},{nil,false},"fill",{0,0,0,255},true)
+				if GMenu.SelectMenu == 6 then
+					MyLib.FadeToColor(0.3,{"LuaCall>MenuClass.BuildMenu()", "OverW"},{nil,false},"fill",{0,0,0,255},true)
 					SaveCharacter(Player)
 				else
 					GMenu.SubmenuSelect = 1

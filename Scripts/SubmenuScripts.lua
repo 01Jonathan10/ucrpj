@@ -1,5 +1,5 @@
 function FadeToSubmenu(Destination)
-	MyLib.FadeToColor(0.3,{"LuaCall>SetSubmenu("..Destination..",1)"},{nil},"fill",{0,0,0,255},true)
+	MyLib.FadeToColor(0.3,{"LuaCall>SetSubmenu("..Destination..",1)"},{},"fill",{0,0,0,255},true)
 	MyLib.KeyRefresh()
 end
 
@@ -11,7 +11,7 @@ end
 function EscGoesTo(Destination, Select)
 	if KeyList[3] then
 		local Select = Select or 1
-		MyLib.FadeToColor(0.3,{"LuaCall>SetSubmenu("..Destination..","..Select..")"},{nil},"fill",{0,0,0,255},true)
+		MyLib.FadeToColor(0.3,{"LuaCall>SetSubmenu("..Destination..","..Select..")"},{},"fill",{0,0,0,255},true)
 		MyLib.KeyRefresh()
 	end
 end
@@ -67,7 +67,7 @@ function FileSelectUpdate()
 				Player = PlayerClass.create(nil, nil, LoadedChars[Menu.SelectMenu])
 				BeginGame()
 			else
-				MyLib.FadeToColor(0.3,{"LuaCall>SetSubmenu(2, "..Menu.SelectMenu..")"},{nil},"fill",{0,0,0,255},true)
+				MyLib.FadeToColor(0.3,{"LuaCall>SetSubmenu(2, "..Menu.SelectMenu..")"},{},"fill",{0,0,0,255},true)
 				MyLib.KeyRefresh()
 				Menu.SelectMenuCustom = 1
 				Menu.Changing = nil
@@ -103,10 +103,10 @@ function CharacterCreateUpdate()
 		else
 			if KeyList[7] then
 				NewCharacter[SELECT_CUSTOM_KEYS[Menu.SelectMenuCustom]] = NewCharacter[SELECT_CUSTOM_KEYS[Menu.SelectMenuCustom]] + 1
-				NewCharacter[SELECT_CUSTOM_KEYS[Menu.SelectMenuCustom]] = (NewCharacter[SELECT_CUSTOM_KEYS[Menu.SelectMenuCustom]] - 1) % SELECT_CUSTOM_LEN[Menu.SelectMenuCustom] + 1
+				NewCharacter[SELECT_CUSTOM_KEYS[Menu.SelectMenuCustom]] = (NewCharacter[SELECT_CUSTOM_KEYS[Menu.SelectMenuCustom]] - 1) % table.getn(Menu.CharImg[SELECT_CUSTOM_KEYS[Menu.SelectMenuCustom]]) + 1
 			elseif KeyList[6] then
 				NewCharacter[SELECT_CUSTOM_KEYS[Menu.SelectMenuCustom]] = NewCharacter[SELECT_CUSTOM_KEYS[Menu.SelectMenuCustom]] - 1
-				NewCharacter[SELECT_CUSTOM_KEYS[Menu.SelectMenuCustom]] = (NewCharacter[SELECT_CUSTOM_KEYS[Menu.SelectMenuCustom]] - 1) % SELECT_CUSTOM_LEN[Menu.SelectMenuCustom] + 1
+				NewCharacter[SELECT_CUSTOM_KEYS[Menu.SelectMenuCustom]] = (NewCharacter[SELECT_CUSTOM_KEYS[Menu.SelectMenuCustom]] - 1) % table.getn(Menu.CharImg[SELECT_CUSTOM_KEYS[Menu.SelectMenuCustom]]) + 1
 			end
 		end
 	end
@@ -151,7 +151,7 @@ function OptionsMenuUpdate(dt)
 		if Menu.SelectMenu == 2 then
 
 		elseif Menu.SelectMenu == 3 then
-			MyLib.FadeToColor(0.3,{"LuaCall>Menu = SetupMenu(2)"},{nil},"fill",{0,0,0,255},true)
+			MyLib.FadeToColor(0.3,{"LuaCall>SetSubmenu(0,2)"},{},"fill",{0,0,0,255},true)
 			MyLib.KeyRefresh()
 		end
 	end

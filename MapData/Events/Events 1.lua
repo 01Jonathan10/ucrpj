@@ -5,8 +5,8 @@ return {
 		single = true,
 		queue = { 
 			function() 
-				local content = {{value="Essa é uma máquina de doces", isPlayer=true}, 
-								 {value="Já que ainda não tem mecânicas de dinheiro, eu vou pegar um...", isPlayer=true},
+				local content = {{value="Essa é uma máquina de doces"}, 
+								 {value="Já que ainda não tem mecânicas de dinheiro, eu vou pegar um..."},
 								}
 				Player:StartDialog(content)
 			end,
@@ -15,7 +15,7 @@ return {
 				EventClass.triggerEvent()
 			end,
 			function() 
-				local content = {{value="Hmm, nem sei o sabor, vou guardar pra depois.", isPlayer=true}}
+				local content = {{value="Hmm, nem sei o sabor, vou guardar pra depois."}}
 				Player:StartDialog(content)
 			end,
 		}
@@ -26,7 +26,7 @@ return {
 		single = true,
 		queue = { 
 			function() 
-				local content = {{value="Urgh, que nojo.", isPlayer=true}}
+				local content = {{value="Urgh, que nojo."}}
 				Player:StartDialog(content)
 			end,
 			function() 
@@ -34,7 +34,7 @@ return {
 				Player:MoveToSpot(12,10)
 			end,
 			function() 
-				local content = {{value="Aquele lugar é um chiqueiro...", isPlayer=true}}
+				local content = {{value="Aquele lugar é um chiqueiro..."}}
 				Player:StartDialog(content)
 			end,
 		}

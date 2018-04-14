@@ -43,9 +43,12 @@ function Utils.Opposite(direction)
 end
 
 function Utils.PrintTb(tb)
+	if not tb then print ("nil") return end
+	print ("{")
 	for key, value in pairs(tb) do
-		print (key.." : "..tostring(value))
+		print ("\t"..key.." : "..tostring(value))
 	end
+	print ("}")
 end
 
 function Utils.IsImage(Img)
@@ -103,10 +106,4 @@ function string:split(separator, isRegex, nMax)
     end
 
    return aRecord
-end
-
-function Utils.ConcatTable(t1,t2)
-	for i=1,#t2 do
-		t1[#t1 + i] = t2[i]
-	end
 end
