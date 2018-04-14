@@ -12,11 +12,11 @@ function CharacterClass:loadSprites()
 	local CharPhtCanvas = love.graphics.newCanvas(500,1000)
 	love.graphics.setCanvas(CharPhtCanvas)
 	
-	love.graphics.draw(CharHair[self.hair][1], 0, 0)
-	love.graphics.draw(CharCBot[self.clothesBot], 0, 0)
-	love.graphics.draw(CharFace[self.face], 0, 0)
-	love.graphics.draw(CharCTop[self.clothesTop], 0, 0)
-	love.graphics.draw(CharHair[self.hair][0], 0, 0)
+	love.graphics.draw(love.graphics.newImage('Graphics/Chars/Hair/Hair_'..self.hair..'_B.png'), 0, 0)
+	love.graphics.draw(love.graphics.newImage('Graphics/Chars/CBot/CBot_'..self.clothesBot..'.png'), 0, 0)
+	love.graphics.draw(love.graphics.newImage('Graphics/Chars/Face/Face_'..self.face..'.png'), 0, 0)
+	love.graphics.draw(love.graphics.newImage('Graphics/Chars/CTop/CTop_'..self.clothesTop..'.png'), 0, 0)
+	love.graphics.draw(love.graphics.newImage('Graphics/Chars/Hair/Hair_'..self.hair..'_F.png'), 0, 0)
 	
 	self.CharPht = love.graphics.newImage(CharPhtCanvas:newImageData())
 	
@@ -114,9 +114,9 @@ function CharacterClass:DoneMoving()
 	
 	local path = self.Path or {}
 	if self.Path and table.getn(path) == 0 then
+		if self == Player then MyLib.lockControls = false end
 		EventClass.triggerEvent() 
 		self.Path = nil
-		if self == Player then MyLib.lockControls = false end
 	end
 end
 
@@ -237,7 +237,7 @@ function CharacterClass:GetFrame()
 end
 
 function CharacterClass:MoveToSpot(x,y)
-	MyLib.lockControls = true
+	if self == Player then MyLib.lockControls = true end
 	self.Path = PathFindingAStar(self.Pxgrid, self.Pygrid+1, x, y)
 	if self.Path then table.remove(self.Path, endtb) end
 end

@@ -29,7 +29,9 @@ return {
 				sophie.Speed = 5
 				local content = {{value="Olha só! Funcionou XD", characterId = sophie.Id},
 								 {value="Agora só faltam mais ...", characterId = sophie.Id},
-								 {value="142 cards do Trello pra resolver", characterId = sophie.Id}
+								 {value="142 cards do Trello pra resolver", characterId = sophie.Id},
+								 {value="..."},
+								 {value="Quê."}
 								}
 				Player:StartDialog(content)
 			end,

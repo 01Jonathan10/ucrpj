@@ -18,6 +18,7 @@ function BeginGame()
 	Battle = false
 	GMenu = nil
 	MyLib.KeyRefresh()
+	Player:DoneMoving()
 end
 
 function loadDialogs()
