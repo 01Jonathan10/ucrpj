@@ -72,6 +72,8 @@ end
 
 function PlaceEventsChars(MapNo)
 
+	Map.Exits = {}
+
 	local DidClear = false
 		
 	if not SceneNPCs[MapNo] then
@@ -80,7 +82,6 @@ function PlaceEventsChars(MapNo)
 	end
 			
 	local MapMetaTable = love.filesystem.load('MapData/Metadata/MapMeta ('..MapNo..').lua')()
-	local Map.Exits = {}
 	
 	local MapEvents = {}
 	if love.filesystem.exists('MapData/Events/Events '..MapNo..'.lua') then
@@ -121,5 +122,7 @@ function loadMap(MapNo, Origin)
 	
 	if not MapImgs[Map.Number] then _, MapImgs[Map.Number] = pcall(love.graphics.newImage, 'Graphics/Maps/Level ('..MapNo..').png') end
 	if not Utils.IsImage(MapImgs[Map.Number]) then MapImgs[Map.Number] = nil end
+	
+	Player:DoneMoving()
 	
 end

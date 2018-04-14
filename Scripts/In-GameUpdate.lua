@@ -1,13 +1,15 @@
 require('GSubmenuScripts')
 
 function DialogUpdate()
-	if Player.CurrentDialog then						-- Dentro de diálogo
+	if Player.CurrentDialog then
+		lockGMenu = true
 		if KeyList[2] then
 			Player.CurrentDialog.count = Player.CurrentDialog.count + 1
 			
 			if Player.CurrentDialog.content[Player.CurrentDialog.count] == nil then
 				for _, eachChar in pairs(Player.CurrentDialog.characters) do eachChar.Locked = false end
 				Player.CurrentDialog = nil
+				lockGMenu = false
 				EventClass.triggerEvent()
 			end
 			

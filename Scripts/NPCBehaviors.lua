@@ -1,6 +1,8 @@
-local NPCBehaviors = {}
+return {
 
-NPCBehaviors[1] = function(NPC, dt)
+[0] = function() end,
+
+[1] = function(NPC, dt)
 	if not NPC.Locked then
 		
 		NPC.Timer = NPC.Timer + dt
@@ -11,6 +13,6 @@ NPCBehaviors[1] = function(NPC, dt)
 		end
 	
 	end
-end
+end,
 
-return NPCBehaviors
+}

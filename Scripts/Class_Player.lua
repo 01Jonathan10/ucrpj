@@ -57,7 +57,6 @@ function PlayerClass:StartDialogChar(Character)
 end
 
 function PlayerClass:StartDialog(content, charList)
-	lockGMenu = true
 	local charList = charList or {}
 	for _, eachChar in pairs(charList) do eachChar.Locked = true end
 	

@@ -66,6 +66,7 @@ function setDrawSize()
 end
 
 function SetupGMenu()
+	if lockGMenu then return nil end
 	return {SelectMenu = 1}
 end
 

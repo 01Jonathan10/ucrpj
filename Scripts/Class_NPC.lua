@@ -2,7 +2,7 @@ NPC = Utils.inheritsFrom( CharacterClass )
 NPC.__index = NPC
 SceneNPCs = {}
 
-local Behaviors = love.filesystem.load( 'Scripts/Class_NPCBehaviors.lua' )()
+local Behaviors = love.filesystem.load( 'Scripts/NPCBehaviors.lua' )()
 
 function NPC.create(charArgs, MapNo)
 	local npc = {
@@ -57,8 +57,8 @@ function NPC.createRandom(Pxgrid, Pygrid, behavior, MapNo)
 		Id = '0',
 		Mood = 1,
 		
-		Pxgrid = Pxgrid, 
-		Pygrid = Pygrid,
+		Px = Pxgrid, 
+		Py = Pygrid,
 		
 		Hair = 2,
 		CBot = 1,
@@ -68,5 +68,5 @@ function NPC.createRandom(Pxgrid, Pygrid, behavior, MapNo)
 		Behavior = behavior,
 	}
 		
-	return NPC.create(npc)
+	return NPC.create(npc, MapNo)
 end

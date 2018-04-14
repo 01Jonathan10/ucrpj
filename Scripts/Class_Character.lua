@@ -5,6 +5,23 @@ function CharacterClass:loadSprites()
 	for i = 1,40 do
 		self.CharSpt[i] = love.graphics.newImage('Graphics/Dev Files/Personagem ('..i..').png')
 	end
+	
+	love.graphics.push()
+	love.graphics.origin()
+	
+	local CharPhtCanvas = love.graphics.newCanvas(500,1000)
+	love.graphics.setCanvas(CharPhtCanvas)
+	
+	love.graphics.draw(CharHair[self.hair][1], 0, 0)
+	love.graphics.draw(CharCBot[self.clothesBot], 0, 0)
+	love.graphics.draw(CharFace[self.face], 0, 0)
+	love.graphics.draw(CharCTop[self.clothesTop], 0, 0)
+	love.graphics.draw(CharHair[self.hair][0], 0, 0)
+	
+	self.CharPht = love.graphics.newImage(CharPhtCanvas:newImageData())
+	
+	love.graphics.pop()
+	love.graphics.setCanvas()
 end
 
 function CharacterClass:moveCharacter(dt)
@@ -47,11 +64,7 @@ function CharacterClass:MoveSquare(direction)
 end
 
 function CharacterClass:DrawCharacterFull(x, y)
-	love.graphics.draw(CharHair[self.hair][1], x, y)
-	love.graphics.draw(CharCBot[self.clothesBot], x, y)
-	love.graphics.draw(CharFace[self.face], x, y)
-	love.graphics.draw(CharCTop[self.clothesTop], x, y)
-	love.graphics.draw(CharHair[self.hair][0], x, y)
+	love.graphics.draw(self.CharPht, x, y)
 end
 
 function PortraitRectangle()
