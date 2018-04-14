@@ -7,17 +7,21 @@ function EventClass.create(event)
 end
 
 function EventClass:beginEvent()
+	SaveCharacter(Player)
+	local newEvent = type(Map.EventQueue) == "nil"
 	Map.EventQueue = Map.EventQueue or {}
 	for _, eachEvent in ipairs(self.queue) do table.insert(Map.EventQueue, eachEvent) end
-	EventClass.triggerEvent()
+	if newEvent then EventClass.triggerEvent() end
 	if self.single then Player.ClearedEvents[self.id] = true end
 end
 
 function EventClass.triggerEvent()
 	if Map.EventQueue then
+		if table.getn(Map.EventQueue) == 0 then Map.EventQueue = nil lockGMenu = false return end
+		
+		lockGMenu = true
 		event = Map.EventQueue[1]
 		table.remove(Map.EventQueue, 1)
-		if table.getn(Map.EventQueue) == 0 then Map.EventQueue = nil end
 		event()
 	end
 end

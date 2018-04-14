@@ -6,15 +6,18 @@ function PlayerClass.create(Pxgrid, Pygrid, args, SaveSlot)
 	local args = args or {}
 	
 	local player = { 
+		CharSpt = {}, 
+		
 		Px = 0, 
 		Py = 0, 
 		Pxgrid = 1, 
 		Pygrid = 1, 
 		Speed = 0, 
-		CharSpt = {}, 
 		Facing = 1, 
 		OverMove = 'none',
+		
 		Inventory = {contents = {}, limit = 10},
+		
 		SaveSlot = SaveSlot,
 		ClearedEvents = {}
 	}
@@ -30,13 +33,11 @@ end
 
 function PlayerClass:Interact()
 	local coord = self:InFrontOfCoordinates()
-	local event = EventClass.getEvent(coord)
+	local event = EventClass.getEvent(coord) or {}
 	
-	if event then
-		if event.method == "Check" then 
-			event:beginEvent() 
-			if event.single then EventClass.lockEvent(coord) end
-		end
+	if event.method == "Check" then
+		event:beginEvent()
+		if event.single then EventClass.lockEvent(coord) end
 	elseif hasCharacter(coord) then
 		self:StartDialogChar(Map.CharacterPos[coord.y][coord.x])
 	else
@@ -56,6 +57,7 @@ function PlayerClass:StartDialogChar(Character)
 end
 
 function PlayerClass:StartDialog(content, charList)
+	lockGMenu = true
 	local charList = charList or {}
 	for _, eachChar in pairs(charList) do eachChar.Locked = true end
 	

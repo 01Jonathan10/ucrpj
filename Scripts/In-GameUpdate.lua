@@ -111,7 +111,7 @@ end
 
 function OverWorldEvents()
 	if Player:RelativeCharacterPosition():sub(1,1) == "E" then
-		local MapNo = Map.Meta.Exits[Player:RelativeCharacterPosition()][1]
+		local MapNo = Map.Exits[Player:RelativeCharacterPosition()][1]
 		loadMap(MapNo, Player:RelativeCharacterPosition())
 	end
 end

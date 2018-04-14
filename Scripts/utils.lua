@@ -104,3 +104,9 @@ function string:split(separator, isRegex, nMax)
 
    return aRecord
 end
+
+function Utils.ConcatTable(t1,t2)
+	for i=1,#t2 do
+		t1[#t1 + i] = t2[i]
+	end
+end

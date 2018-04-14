@@ -70,7 +70,7 @@ function love.draw(dt)
 end
 
 function love.quit()
-	if Player.SaveSlot then
+	if Player.SaveSlot and not Map.EventQueue then
 		SaveCharacter(Player)
 	end
 	SaveUserData()

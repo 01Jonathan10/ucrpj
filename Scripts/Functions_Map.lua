@@ -17,10 +17,10 @@ function resetMap(Origin)
 	if Origin == nil then
 		Player:SetCharacterPosition(5,5)
 	else
-		Player:SetCharacterPosition(Map.Meta.Exits[Origin][3], Map.Meta.Exits[Origin][2])
+		Player:SetCharacterPosition(Map.Exits[Origin][3], Map.Exits[Origin][2])
 	end
 	
-	Map.Meta = {}
+	Map.Exits = {}
 	
 end
 
@@ -80,7 +80,7 @@ function PlaceEventsChars(MapNo)
 	end
 			
 	local MapMetaTable = love.filesystem.load('MapData/Metadata/MapMeta ('..MapNo..').lua')()
-	local MapMeta = {Exits = {}}
+	local Map.Exits = {}
 	
 	local MapEvents = {}
 	if love.filesystem.exists('MapData/Events/Events '..MapNo..'.lua') then
@@ -90,18 +90,17 @@ function PlaceEventsChars(MapNo)
 	for _, line in pairs(MapMetaTable) do
 		
 		if line[1]:sub(1,1)=='E' then
-			MapMeta.Exits[line[1]] = {line[2], line[3], line[4]}
+			Map.Exits[line[1]] = {line[2], line[3], line[4]}
 		elseif line[1]:sub(1,1)=='V' then
 			local index = tonumber(line[1]:sub(2))
 			if not Player.ClearedEvents[MapEvents[index].id] then
 				Map.Events[line[2].."-"..line[3]] = EventClass.create(MapEvents[index])
 			end
 		elseif line[1]:sub(1,1)=='C' and DidClear then
-			NPC.create(line[2], line[3], line[4], MapNo)
+			NPC.createRandom(line[2], line[3], line[4], MapNo)
 		end
 	end
 	
-	Map.Meta = MapMeta
 	Map.Number = MapNo
 	
 	if not DidClear then

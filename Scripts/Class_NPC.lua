@@ -4,27 +4,25 @@ SceneNPCs = {}
 
 local Behaviors = love.filesystem.load( 'Scripts/Class_NPCBehaviors.lua' )()
 
-function NPC.create(Pxgrid, Pygrid, behavior, MapNo)
-	local npc = {}
-	
-	npc = {
-		Name = "Rose Lalonde",
-		characterId = '0',
-		Mood = 1,
+function NPC.create(charArgs, MapNo)
+	local npc = {
+		Name = charArgs.Name,
+		Id = charArgs.Id,
+		Mood = charArgs.mood or 1,
 		
-		Px = Pxgrid*40-40, 
-		Py = Pygrid*40-40, 
-		Pxgrid = Pxgrid, 
-		Pygrid = Pygrid,
+		Pxgrid = charArgs.Px, 
+		Pygrid = charArgs.Py,
+		Px = charArgs.Px*40-40, 
+		Py = charArgs.Py*40-40, 
 		Speed = 5,
 		Facing = 1,
 		
-		hair = 2,
-		clothesBot = 1,
-		face = 1,
-		clothesTop = 1,
+		hair = charArgs.Hair,
+		clothesBot = charArgs.CBot,
+		face = charArgs.Face,
+		clothesTop = charArgs.CTop,
 		
-		Behavior = behavior,
+		Behavior = charArgs.Behavior or 0,
 		OverMove = "none",
 		Timer = 0,
 		TimerLimit = math.random()*5,
@@ -33,8 +31,8 @@ function NPC.create(Pxgrid, Pygrid, behavior, MapNo)
 		CharSpt = {}, 
 	}
 	
-	SceneNPCs[MapNo][npc.characterId] = npc
-	Map.CharacterPos[Pygrid + 1][Pxgrid] = npc
+	SceneNPCs[MapNo or Map.Number][npc.Id] = npc
+	Map.CharacterPos[npc.Pygrid + 1][npc.Pxgrid] = npc
 	
 	setmetatable(npc,NPC)
 	
@@ -51,4 +49,24 @@ end
 
 function ClearNPCs(MapNo)
 	SceneNPCs[MapNo] = {}
+end
+
+function NPC.createRandom(Pxgrid, Pygrid, behavior, MapNo)
+	local npc = {
+		Name = "Rose Lalonde",
+		Id = '0',
+		Mood = 1,
+		
+		Pxgrid = Pxgrid, 
+		Pygrid = Pygrid,
+		
+		Hair = 2,
+		CBot = 1,
+		Face = 1,
+		CTop = 1,
+		
+		Behavior = behavior,
+	}
+		
+	return NPC.create(npc)
 end
