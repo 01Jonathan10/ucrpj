@@ -14,7 +14,6 @@ function SaveCharacter(SavingChar)
 	local FileText = ""
 	FileText = FileText .. "return{\n"
 	FileText = FileText .. "gold = "..SavingChar.gold..",\n"
-	FileText = FileText .. "xp = "..SavingChar.xp..",\n"
 	FileText = FileText .. "level = "..SavingChar.level..",\n"
 	FileText = FileText .. "Name = '"..SavingChar.Name.."',\n"
 	FileText = FileText .. "Hair = "..SavingChar.Hair..",\n"
@@ -25,6 +24,7 @@ function SaveCharacter(SavingChar)
 	FileText = FileText .. "MetaData = "..Utils.table_to_string(MetaData)..",\n"
 	FileText = FileText .. "ClearedEvents = "..Utils.table_to_string(SavingChar.ClearedEvents)..",\n"
 	FileText = FileText .. "SeenDialogs = "..Utils.table_to_string(SavingChar.SeenDialogs)..",\n"
+	FileText = FileText .. "Day = "..SavingChar.Day..",\n"
 	FileText = FileText .. "}"
 	
 	love.filesystem.write("Save00"..SavingChar.SaveSlot..".lua", FileText)

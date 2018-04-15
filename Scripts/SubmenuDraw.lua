@@ -13,7 +13,7 @@ function FileSelectDraw()
 		if LoadedChars[i] then
 			love.graphics.print(LoadedChars[i].Name, 600, 130 + 260*i)
 			love.graphics.print("Level "..LoadedChars[i].level, 1000, 130 + 260*i)
-			love.graphics.print("XP: "..LoadedChars[i].xp, 600, 170 + 260*i)
+			love.graphics.print("Day: "..LoadedChars[i].Day, 600, 170 + 260*i)
 			love.graphics.print("Gold: "..LoadedChars[i].gold, 600, 210 + 260*i)
 		end
 	end
@@ -36,8 +36,7 @@ function CharacterCreateDraw()
 	
 	love.graphics.print(NewCharacter.Name, 800, 400)
 	love.graphics.print("Level "..NewCharacter.level, 1200, 400)
-	love.graphics.print("XP: "..NewCharacter.xp, 800, 440)
-	love.graphics.print("Gold: "..NewCharacter.gold, 800, 480)
+	love.graphics.print("Gold: "..NewCharacter.gold, 800, 440)
 end
 
 function OptionsDraw()

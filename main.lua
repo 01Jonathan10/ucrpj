@@ -72,7 +72,6 @@ function love.draw(dt)
 	love.graphics.setColor(126,126,126)
 	love.graphics.print('Memory actually used (in kB): ' .. math.ceil(collectgarbage('count')), 10,10)
 	collectgarbage('collect')
-	if Camera then love.graphics.print(Camera.DestX, 100,100) end
 end
 
 function love.quit()

@@ -18,9 +18,7 @@ function PlayerClass.create(Pxgrid, Pygrid, args, SaveSlot)
 		
 		Inventory = {contents = {}, limit = 10},
 		
-		SaveSlot = SaveSlot,
-		ClearedEvents = {},
-		SeenDialogs = {},
+		SaveSlot = SaveSlot,	
 	}
 	
 	Utils.mergeTables(player,args)
@@ -91,14 +89,16 @@ end
 function PlayerClass:BlankCharacter()
 	return {
 		gold = 0, 
-		xp = 0, 
 		level = 1, 
 		Name = '', 
 		Hair = 1, 
 		Face = 1, 
 		CTop = 1, 
 		CBot = 1,
-		MetaData = {ItemsGot = {}}
+		MetaData = {ItemsGot = {}},
+		ClearedEvents = {},
+		SeenDialogs = {},	
+		Day = 1,
 	}
 end
 
