@@ -25,6 +25,7 @@ function SaveCharacter(SavingChar)
 	FileText = FileText .. "ClearedEvents = "..Utils.table_to_string(SavingChar.ClearedEvents)..",\n"
 	FileText = FileText .. "SeenDialogs = "..Utils.table_to_string(SavingChar.SeenDialogs)..",\n"
 	FileText = FileText .. "Day = "..SavingChar.Day..",\n"
+	FileText = FileText .. "Time = "..Utils.table_to_string(SavingChar.Time)..",\n"
 	FileText = FileText .. "}"
 	
 	love.filesystem.write("Save00"..SavingChar.SaveSlot..".lua", FileText)

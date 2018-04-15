@@ -13,7 +13,8 @@ function FileSelectDraw()
 		if LoadedChars[i] then
 			love.graphics.print(LoadedChars[i].Name, 600, 130 + 260*i)
 			love.graphics.print("Level "..LoadedChars[i].level, 1000, 130 + 260*i)
-			love.graphics.print("Day: "..LoadedChars[i].Day, 600, 170 + 260*i)
+			local dateTime = LoadedChars[i].Day.." - "..LoadedChars[i].Time[1]..":"..string.format("%02d", LoadedChars[i].Time[2])
+			love.graphics.print("Day: "..dateTime, 600, 170 + 260*i)
 			love.graphics.print("Gold: "..LoadedChars[i].gold, 600, 210 + 260*i)
 		end
 	end

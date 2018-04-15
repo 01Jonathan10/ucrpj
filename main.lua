@@ -69,8 +69,7 @@ function love.draw(dt)
 	
 	drawInGame()
 	
-	love.graphics.setColor(126,126,126)
-	love.graphics.print('Memory actually used (in kB): ' .. math.ceil(collectgarbage('count')), 10,10)
+	love.graphics.print('Memory actually used: '..math.ceil(collectgarbage('count')).." kB", 10,10)
 	collectgarbage('collect')
 end
 

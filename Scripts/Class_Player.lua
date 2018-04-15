@@ -99,6 +99,7 @@ function PlayerClass:BlankCharacter()
 		ClearedEvents = {},
 		SeenDialogs = {},	
 		Day = 1,
+		Time = {6,0},
 	}
 end
 
