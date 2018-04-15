@@ -99,6 +99,7 @@ function CharacterClass:SetCharacterPosition(Px, Py)
 	self.Px=Px*40-40
 	self.Py=Py*40-40
 	Map.CharacterPos[self.Pygrid + 1][self.Pxgrid] = self
+	self:DoneMoving()
 end
 
 function CharacterClass:DoneMoving()

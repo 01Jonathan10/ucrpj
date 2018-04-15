@@ -1,4 +1,4 @@
-function resetMap(Origin)
+function resetMap()
 	
 	Map.CharacterPos = {}
 	Map.Events = {}
@@ -8,20 +8,9 @@ function resetMap(Origin)
 	for i=1,1000 do
 		Map[i] = {}
 		Map.CharacterPos[i] = {}
-		for j=1,1000 do
-			Map[i][j]="None"
-			Map.CharacterPos[i][j] = nil
-		end
-	end
-	
-	if Origin == nil then
-		Player:SetCharacterPosition(5,5)
-	else
-		Player:SetCharacterPosition(Map.Exits[Origin][3], Map.Exits[Origin][2])
 	end
 	
 	Map.Exits = {}
-	
 end
 
 function readMapLines(MapNo)
@@ -79,22 +68,15 @@ end
 function PlaceEventsChars(MapNo)
 
 	Map.Exits = {}
-
-	local DidClear = false
 		
-	if not SceneNPCs[MapNo] then
-		ClearNPCs(MapNo)
-		DidClear = true
-	end
-			
-	local MapMetaTable = love.filesystem.load('MapData/Metadata/MapMeta ('..MapNo..').lua')()
-	
+	if not SceneNPCs[MapNo] then ClearNPCs(MapNo) end
+				
 	local MapEvents = {}
 	if love.filesystem.exists('MapData/Events/Events '..MapNo..'.lua') then
 		MapEvents = love.filesystem.load('MapData/Events/Events '..MapNo..'.lua')()
 	end
 	
-	for _, line in pairs(MapMetaTable) do
+	for _, line in pairs(love.filesystem.load('MapData/Metadata/MapMeta ('..MapNo..').lua')()) do
 		
 		if line[1]:sub(1,1)=='E' then
 			Map.Exits[line[1]] = {line[2], line[3], line[4]}
@@ -106,34 +88,57 @@ function PlaceEventsChars(MapNo)
 		elseif line[1] == 'Character' then
 			local condition = line[3] or function() return true end
 			if condition() then
-				NPC.create(line[2], MapNo)
+				if not SceneNPCs[MapNo][line[2].Id] then
+					NPC.create(line[2], MapNo)
+				end
 			end
-		elseif line[1]:sub(1,1)=='C' and DidClear then
+		elseif line[1]:sub(1,1)=='C' and SceneNPCs[MapNo].cleared then
 			NPC.createRandom(line[2], line[3], line[4], MapNo)
 		end
 	end
 	
 	Map.Number = MapNo
 	
-	if not DidClear then
-		for _, character in pairs(SceneNPCs[MapNo]) do
+	SceneNPCs[MapNo].cleared = nil
+	
+	ClearCharPos()
+	for _, character in pairs(SceneNPCs[MapNo]) do
+		if character.OverMove == "none" then
 			Map.CharacterPos[character.Pygrid + 1][character.Pxgrid] = character
+		else
+			local coord = character:InFrontOfCoordinates()
+			Map.CharacterPos[coord.y][coord.x] = character
 		end
+	end
+end
+
+function ClearCharPos()
+	Map.CharacterPos = {}
+	for i=1,Map.Ymax do
+		Map.CharacterPos[i] = {}
 	end
 end
 
 function loadMap(MapNo, Origin)
 	
-	resetMap(Origin)
+	local MapExit = GetOrigin(Origin)
+	
+	resetMap()
 	
 	readMapLines(MapNo)
 	readMapDialog(MapNo)
 	Camera:setCameraPosition(Player)
 	PlaceEventsChars(MapNo)
 	
-	if not MapImgs[Map.Number] then _, MapImgs[Map.Number] = pcall(love.graphics.newImage, 'Graphics/Maps/Level ('..MapNo..').png') end
-	if not Utils.IsImage(MapImgs[Map.Number]) then MapImgs[Map.Number] = nil end
-	
-	Player:DoneMoving()
-	
+	if not MapImgs[Map.Number] then MapImgs[Map.Number] = love.graphics.newImage('Graphics/Maps/Level ('..MapNo..').png') end
+
+	Player:SetCharacterPosition(MapExit[1], MapExit[2])
+end
+
+function GetOrigin(Origin)
+	if Origin == nil then
+		return {5,5}
+	else
+		return {Map.Exits[Origin][3], Map.Exits[Origin][2]}
+	end
 end

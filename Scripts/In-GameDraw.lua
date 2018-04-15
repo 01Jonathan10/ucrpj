@@ -1,5 +1,3 @@
-require('GSubmenuDraw')
-
 function drawScene()
 
 	love.graphics.translate( 2*Camera.Xcam, 2*Camera.Ycam )
@@ -32,18 +30,6 @@ function drawCharactersInScene()
 				love.graphics.draw(character.CharSpt[frame], 2*character.Px, 2*character.Py)
 			end
 		end
-	end
-end
-
-function drawPauseMenu()
-	if GMenu.Submenu then
-		GSubmenuDraw()
-	else
-		love.graphics.draw(SideMenu, 800, 0)
-		love.graphics.draw(SideMenub, 800, 0)
-		Xmenu =((GMenu.SelectMenu-1)%3)*206 + 980
-		Ymenu =(((GMenu.SelectMenu-1)/3)-((GMenu.SelectMenu-1)/3)%1)*220 + 450
-		love.graphics.draw(SideMenuS,Xmenu,Ymenu)
 	end
 end
 

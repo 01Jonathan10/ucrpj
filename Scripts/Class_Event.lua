@@ -17,9 +17,9 @@ end
 
 function EventClass.triggerEvent()
 	if Map.EventQueue then
-		if table.getn(Map.EventQueue) == 0 then Map.EventQueue = nil lockGMenu = false return end
+		if table.getn(Map.EventQueue) == 0 then Map.EventQueue = nil GMenu.locked = false return end
 		
-		lockGMenu = true
+		GMenu.locked = true
 		event = Map.EventQueue[1]
 		table.remove(Map.EventQueue, 1)
 		event()

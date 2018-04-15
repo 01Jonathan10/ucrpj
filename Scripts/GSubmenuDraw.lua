@@ -4,7 +4,7 @@ function GSubmenuDraw()
 end
 
 function InventoryDraw()
-	love.graphics.draw(GMenuImg[1], 0, 0)
+	love.graphics.draw(GMenu.Imgs[1], 0, 0)
 	local i = 1
 	for id, ammount in pairs(Player.Inventory.contents) do
 		local item = ItemData[id]
@@ -31,7 +31,7 @@ function TodoDraw()
 end
 
 function SubOptionsDraw()
-	love.graphics.draw(MenuImg[3], 0, 0)
+	love.graphics.draw(GMenu.Imgs[2], 0, 0)
 	if not GMenu.VControl then
 		love.graphics.draw(Selecao, 300, GMenu.SelectMenu*150+450)
 		love.graphics.setColor(126,126,126)		

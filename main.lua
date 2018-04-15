@@ -8,6 +8,7 @@ require ('utils')
 require ('Class_Camera')
 require ('Class_Character')
 require ('Class_Event')
+require ('Class_GMenu')
 require ('Class_Item')
 require ('Class_LoadQueue')
 require ('Class_Menu')
@@ -16,8 +17,13 @@ require ('Class_Player')
 
 require ('In-Game')
 require ('Functions')
-require ('Load')
 require ('Setup')
+
+function love.load(arg)		
+		
+	DialogBox = love.graphics.newImage('Graphics/Dev Files/Dialogbox.png')
+	
+end
 
 function love.keypressed (key)
 	if key == "backspace" and Menu then

@@ -3,7 +3,7 @@ require ('Functions_SaveLoad')
 require ('Functions_Characters')
 
 function BeginGame()
-	MyLib.FadeToColor(0.3,{"OverW", "Menu"},{true, nil},"fill",{0,0,0,255},true)
+	MyLib.FadeToColor(0.3,{"OverW", "Menu", "LuaCall>Player:DoneMoving()"},{true},"fill",{0,0,0,255},true)
 	
 	Camera = CameraClass.setup()
 	
@@ -16,9 +16,8 @@ function BeginGame()
 		
 	Player.CurrentDialog = nil
 	Battle = false
-	GMenu = nil
+	GMenuClass.BuildMenu()
 	MyLib.KeyRefresh()
-	Player:DoneMoving()
 end
 
 function loadDialogs()
@@ -66,10 +65,6 @@ function setDrawSize()
 	love.graphics.translate(XOri, YOri)
 end
 
-function SetupGMenu()
-	if lockGMenu then return nil end
-	return {SelectMenu = 1}
-end
 
 function PathFindingAStar(XStart, YStart, XGoal, YGoal)
 	local PathMap = {}

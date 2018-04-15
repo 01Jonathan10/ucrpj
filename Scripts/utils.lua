@@ -51,10 +51,6 @@ function Utils.PrintTb(tb)
 	print ("}")
 end
 
-function Utils.IsImage(Img)
-	return tostring(type(Img))=='userdata'
-end
-
 function Utils.table_to_string(tbl)
     local result = "{"
     for k, v in pairs(tbl) do

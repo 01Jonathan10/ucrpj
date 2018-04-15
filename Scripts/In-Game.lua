@@ -10,8 +10,8 @@ function drawInGame()
 			drawInteraction()
 		end
 		
-		if GMenu then
-			drawPauseMenu()
+		if GMenu.Active then
+			GMenu:Draw()
 		end
 	end
 	
@@ -27,7 +27,9 @@ function inGameUpdate(dt)
 	
 	OverWorldEvents()
 	
-	PauseMenu(dt)
+	if GMenu.Active then
+		GMenu:Update(dt)
+	end
 		
 	DialogUpdate()
 	

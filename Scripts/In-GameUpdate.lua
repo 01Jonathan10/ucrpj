@@ -1,15 +1,13 @@
-require('GSubmenuScripts')
-
 function DialogUpdate()
 	if Player.CurrentDialog then
-		lockGMenu = true
+		GMenu.locked = true
 		if KeyList[2] then
 			Player.CurrentDialog.count = Player.CurrentDialog.count + 1
 			
 			if Player.CurrentDialog.content[Player.CurrentDialog.count] == nil then
 				for _, eachChar in pairs(Player.CurrentDialog.characters) do eachChar.Locked = false end
 				Player.CurrentDialog = nil
-				lockGMenu = false
+				GMenu.locked = false
 				EventClass.triggerEvent()
 			end
 			
@@ -18,46 +16,9 @@ function DialogUpdate()
 	end
 end
 
-function PauseMenu(dt)
-	if GMenu then
-		if GMenu.Submenu then
-			GSubmenuUpdate(dt)
-		else
-			if KeyList[4] and GMenu.SelectMenu>3 then
-				GMenu.SelectMenu=GMenu.SelectMenu - 3
-			elseif KeyList[5] and GMenu.SelectMenu<4 then
-				GMenu.SelectMenu=GMenu.SelectMenu + 3
-			elseif KeyList[7] and GMenu.SelectMenu % 3 ~= 0 then
-				GMenu.SelectMenu=GMenu.SelectMenu + 1 
-			elseif KeyList[6] and GMenu.SelectMenu % 3 ~= 1 then
-				GMenu.SelectMenu=GMenu.SelectMenu - 1
-			elseif KeyList[2] then
-				if GMenu.SelectMenu == 6 then
-					MyLib.FadeToColor(0.3,{"LuaCall>MenuClass.BuildMenu()", "OverW"},{nil,false},"fill",{0,0,0,255},true)
-					SaveCharacter(Player)
-				else
-					GMenu.SubmenuSelect = 1
-					GMenu.Submenu = GMenu.SelectMenu
-					
-					if GMenu.Submenu == 5 then
-						GMenu.MasterV = 100*love.audio.getVolume()
-						GMenu.VControl = true
-					end
-				end
-				
-				-- 4 TODO
-				-- 3 Friends
-				-- 2 Equip
-				-- 1 Inventory
-
-			end
-		end
-	end
-end
-
 function OverWorldControls()
 	PauseControls()
-	if not Player.CurrentDialog and not GMenu then	-- Comandos fora de diálogos
+	if not Player.CurrentDialog and not GMenu.Active then	-- Comandos fora de diálogos
 		MovementControls()
 		
 		if KeyList[2] and Player.OverMove == 'none' then
@@ -68,14 +29,14 @@ end
 
 function PauseControls()
 	if KeyList[3] then
-		if GMenu then
+		if GMenu.Active then
 			if GMenu.Submenu then
 				GMenu.Submenu = nil
 			else
-				GMenu = nil
+				GMenu:CloseMenu()
 			end
 		else
-			GMenu = SetupGMenu()
+			GMenu:StartMenu()
 		end
 	end
 end

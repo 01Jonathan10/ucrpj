@@ -48,7 +48,7 @@ function NPC:BehaviorCall(dt)
 end
 
 function ClearNPCs(MapNo)
-	SceneNPCs[MapNo] = {}
+	SceneNPCs[MapNo] = {cleared = true}
 end
 
 function NPC.createRandom(Pxgrid, Pygrid, behavior, MapNo)
