@@ -19,7 +19,8 @@ function PlayerClass.create(Pxgrid, Pygrid, args, SaveSlot)
 		Inventory = {contents = {}, limit = 10},
 		
 		SaveSlot = SaveSlot,
-		ClearedEvents = {}
+		ClearedEvents = {},
+		SeenDialogs = {},
 	}
 	
 	Utils.mergeTables(player,args)
@@ -39,7 +40,21 @@ function PlayerClass:Interact()
 		event:beginEvent()
 		if event.single then EventClass.lockEvent(coord) end
 	elseif hasCharacter(coord) then
-		self:StartDialogChar(Map.CharacterPos[coord.y][coord.x])
+		local character = Map.CharacterPos[coord.y][coord.x]
+		character.Facing = Utils.Opposite(self.Facing)
+		if Map.DialogsChar[character.Id] then
+			local content = nil
+			if Player.SeenDialogs[character.Id] then
+				content = Map.DialogsChar[character.Id].common
+			else
+				content = Map.DialogsChar[character.Id].firstDialog
+				Player.SeenDialogs[character.Id] = true
+			end
+			self:StartDialog(content, {character})
+		else
+			self:StartDialogChar(character)
+		end
+		
 	else
 		self:StartChecking(self:InFrontOf())
 	end
@@ -51,7 +66,6 @@ function PlayerClass:StartChecking(id)
 end
 
 function PlayerClass:StartDialogChar(Character)
-	Character.Facing = Utils.Opposite(self.Facing)
 	DialogID = math.random(1, table.getn(TextData.SmallTalk[Character.Mood]))
 	self:StartDialog(TextData.SmallTalk[Character.Mood][DialogID], {Character})
 end

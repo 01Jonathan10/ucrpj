@@ -124,6 +124,7 @@ function CharacterCreateUpdate()
 	if KeyList[1] == "return" then
 		SaveCharacter(NewCharacter, Menu.SelectMenu)
 		Player = NewCharacter
+		Player:loadSprites()
 		BeginGame()
 	end
 	

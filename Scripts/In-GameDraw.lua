@@ -29,8 +29,7 @@ function drawCharactersInScene()
 			if Map.CharacterPos[j][i] then
 				local character = Map.CharacterPos[j][i]
 				local frame = character:GetFrame()
-				love.graphics.draw(Player.CharSpt[frame], 2*character.Px, 2*character.Py)
-				love.graphics.print(Map.CharacterPos[j][i], 2*character.Px, 2*character.Py)
+				love.graphics.draw(character.CharSpt[frame], 2*character.Px, 2*character.Py)
 			end
 		end
 	end

@@ -66,6 +66,14 @@ function readMapDialog(MapNo)
 	end
 	
 	Map.DialogsChk = DialogsChk
+	
+	local DialogsChar = {}
+	
+	for charId, content in pairs(love.filesystem.load('TextData/CharacterDialog/Dialog_'..MapNo..'.lua')()) do
+		DialogsChar[charId] = {firstDialog = content.firstDialog, common = content.common}
+	end
+	
+	Map.DialogsChar = DialogsChar
 end
 
 function PlaceEventsChars(MapNo)
@@ -94,6 +102,11 @@ function PlaceEventsChars(MapNo)
 			local index = tonumber(line[1]:sub(2))
 			if not Player.ClearedEvents[MapEvents[index].id] then
 				Map.Events[line[2].."-"..line[3]] = EventClass.create(MapEvents[index])
+			end
+		elseif line[1] == 'Character' then
+			local condition = line[3] or function() return true end
+			if condition() then
+				NPC.create(line[2], MapNo)
 			end
 		elseif line[1]:sub(1,1)=='C' and DidClear then
 			NPC.createRandom(line[2], line[3], line[4], MapNo)

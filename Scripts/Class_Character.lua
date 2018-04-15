@@ -242,17 +242,13 @@ function CharacterClass:followPath()
 	
 	if endtb > 0 and self.OverMove == "none" then
 		if path[endtb].x < self.Pxgrid then
-			self.Facing = 4
-			self.OverMove = 'left'
+			self:MoveSquare("left")
 		elseif path[endtb].x > self.Pxgrid then
-			self.Facing = 2
-			self.OverMove = 'right'
+			self:MoveSquare("right")
 		elseif path[endtb].y < self.Pygrid+1 then
-			self.Facing = 3
-			self.OverMove = 'up'
+			self:MoveSquare("up")
 		elseif path[endtb].y > self.Pygrid+1 then
-			self.Facing = 1
-			self.OverMove = 'down'
+			self:MoveSquare("down")
 		end
 		table.remove(path, endtb)
 	end
