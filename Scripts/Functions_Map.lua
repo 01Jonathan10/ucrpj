@@ -25,8 +25,8 @@ function readMapLines(MapNo)
 		end
 		i = i + 1
 		
-		if Map.Xmax < j then
-			Map.Xmax = j
+		if Map.Xmax < j - 1 then
+			Map.Xmax = j - 1
 		end
 		
 		j = 1
@@ -133,6 +133,7 @@ function loadMap(MapNo, Origin)
 	if not MapImgs[Map.Number] then MapImgs[Map.Number] = love.graphics.newImage('Graphics/Maps/Level ('..MapNo..').png') end
 
 	Player:SetCharacterPosition(MapExit[1], MapExit[2])
+	
 end
 
 function GetOrigin(Origin)

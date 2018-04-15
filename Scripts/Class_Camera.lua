@@ -9,7 +9,7 @@ function CameraClass.setup()
 		Ycam = 0,
 		DestX = 0,
 		DestY = 0,
-		Speed = 150,
+		Speed = 300,
 	}
 	
 	setmetatable(camera,CameraClass)
@@ -31,35 +31,35 @@ end
 
 function CameraClass:SetCameraXPosition(Character)
 	if Map.Xmax <= 20 then
-		self.DestX = (21 - Map.Xmax)*20
+		self.DestX = (Map.Xmax - 20)*40
 	else
-		self.DestX = math.min(0,380-Character.Px)
-		self.DestX = math.max(840-(Map.Xmax*40),self.DestX)
+		self.DestX = math.max(View.XOri, 2*(Character.Px-380))
+		self.DestX = math.min((((Map.Xmax * 80 * View.Scale) - View.SX)/View.Scale + View.XOri), self.DestX)
 	end
 end
 
 function CameraClass:SetCameraYPosition(Character)
 	if Map.Ymax <= 15 then
-		self.DestY = (15 - Map.Ymax)*20
+		self.DestY = (Map.Ymax - 15)*40
 	else
-		self.DestY = math.min(0,240-Character.Py)
-		self.DestY = math.max(600-(Map.Ymax*40),self.DestY)
+		self.DestY = math.max(View.YOri, 2*(Character.Py-240))
+		self.DestY = math.min((((Map.Ymax * 80 * View.Scale) - View.SY)/View.Scale + View.YOri), self.DestY)
 	end
 end
 
 function CameraClass:setForceCameraPosition(Character)
 	if Map.Ymax <= 15 then
-		self.Ycam = (15 - Map.Ymax)*20
+		self.Ycam = (Map.Ymax - 15)*40
 	else
-		self.Ycam = math.min(0,240-Character.Py)
-		self.Ycam = math.max(600-(Map.Ymax*40),self.Ycam)
+		self.Ycam = math.max(View.YOri, 2*(Character.Py-240))
+		self.Ycam = math.min((((Map.Ymax * 80 * View.Scale) - View.SY)/View.Scale + View.YOri), self.Ycam)
 	end
 	
 	if Map.Xmax <= 20 then
-		self.Xcam = (21 - Map.Xmax)*20
+		self.Xcam = (Map.Xmax - 20)*40
 	else
-		self.Xcam = math.min(0,380-Character.Px)
-		self.Xcam = math.max(840-(Map.Xmax*40),self.Xcam)
+		self.Xcam = math.max(View.XOri, 2*(Character.Px-380))
+		self.Xcam = math.min((((Map.Xmax * 80 * View.Scale) - View.SX)/View.Scale + View.XOri), self.Xcam)
 	end
 	
 	self:Stop()

@@ -19,6 +19,8 @@ end
 
 function GMenuClass:StartMenu()
 	self.Active = self.locked ~= true
+	local _,_,Mode = love.window.getMode()
+	self.FullScreen = Mode.fullscreen
 end
 
 
@@ -39,7 +41,6 @@ function GMenuClass:LoadImgs()
 		self.Imgs[i] = love.graphics.newImage('Graphics/Misc/GMenu '..i..'.png')
 		i = i + 1
 	end
-	print (self.Imgs[2])
 end
 
 

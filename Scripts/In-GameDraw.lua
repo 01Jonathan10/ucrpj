@@ -1,24 +1,12 @@
 function drawScene()
 
-	love.graphics.translate( 2*Camera.Xcam, 2*Camera.Ycam )
+	love.graphics.translate( -Camera.Xcam, -Camera.Ycam )
 		
-	if MapImgs[Map.Number] then
-		love.graphics.draw(MapImgs[Map.Number], -240, -200)
-	else
-		for j=1,Map.Ymax do
-			for i=1,Map.Xmax do
-				if Map[j][i]== '0' then
-					love.graphics.draw(FloorTl, 80*(i-1), 80*(j-1))
-				elseif Map[j][i]== '1' then
-					love.graphics.rectangle("fill", 80*(i-1), 80*(j-1), 80, 80 )
-				end
-			end
-		end
-	end
+	love.graphics.draw(MapImgs[Map.Number], -240, -200)
 
 	drawCharactersInScene()
 	
-	love.graphics.translate( -2*Camera.Xcam, -2*Camera.Ycam )
+	love.graphics.translate( Camera.Xcam, Camera.Ycam )
 end
 
 function drawCharactersInScene()
@@ -34,7 +22,7 @@ function drawCharactersInScene()
 end
 
 function drawInteraction(Character)
-	love.graphics.draw(DialogBox,100,850)
+	love.graphics.draw(View.DialogBox,100,850)
 	
 	local current = Player.CurrentDialog.content[Player.CurrentDialog.count]
 	local dialogChar

@@ -48,23 +48,9 @@ function loadDialogs()
 end
 
 function setDrawSize()
-	local DrawSize = 0.5
-	local XOri, YOri, SXSc, SYSc = 0, 0, 0.5, 0.5
-
-	local SX, SY = love.graphics.getDimensions()
-	SXSc = SX / 1600
-	SYSc = SY / 1200
-	DrawSize = math.min(SXSc, SYSc)
-	if SXSc == DrawSize then
-		YOri = (SY - 600) / 2
-	else
-		XOri = (SX - 800) / 2
-	end
-	
-	love.graphics.scale(DrawSize, DrawSize)
-	love.graphics.translate(XOri, YOri)
+	love.graphics.scale(View.Scale, View.Scale)
+	love.graphics.translate(View.XOri, View.YOri)
 end
-
 
 function PathFindingAStar(XStart, YStart, XGoal, YGoal)
 	local PathMap = {}
@@ -151,4 +137,34 @@ function getNeighbors(node)
 		if CanMove({x=node.x, y=node.y+1}) then table.insert(neighbors, {x=node.x,y=node.y+1, GCost = node.GCost + 1, cameFrom = node}) end
 	end
 	return neighbors
+end
+
+function ToggleFullScreen(FS)
+
+	if FS then
+		love.window.setMode(1920, 1080, {fullscreen = true})
+	else
+		love.window.setMode(800, 600, {fullscreen = false})
+	end
+
+	local DrawSize = 0.5
+	local XOri, YOri, SXSc, SYSc = 0, 0, 0.5, 0.5
+
+	View.SX, View.SY = love.graphics.getDimensions()
+	SXSc = View.SX / 1600
+	SYSc = View.SY / 1200
+	DrawSize = math.min(SXSc, SYSc)
+	if SXSc == DrawSize then
+		YOri = (View.SY - 600) / 2
+	else
+		XOri = (View.SX - 800) / 2
+	end
+
+	View.Scale =  DrawSize
+	View.XOri = XOri
+	View.YOri = YOri
+	
+	if Camera then 
+		Camera:setForceCameraPosition(Player)
+	end
 end

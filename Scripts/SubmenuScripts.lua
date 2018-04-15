@@ -150,7 +150,8 @@ function OptionsMenuUpdate(dt)
 		Menu.SelectMenu = Menu.SelectMenu - 1
 	elseif KeyList[2] and not Menu.VControl then
 		if Menu.SelectMenu == 2 then
-
+			Menu.FullScreen = not Menu.FullScreen
+			ToggleFullScreen(Menu.FullScreen)
 		elseif Menu.SelectMenu == 3 then
 			MyLib.FadeToColor(0.3,{"LuaCall>SetSubmenu(0,2)"},{},"fill",{0,0,0,255},true)
 			MyLib.KeyRefresh()

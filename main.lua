@@ -21,7 +21,7 @@ require ('Setup')
 
 function love.load(arg)		
 		
-	DialogBox = love.graphics.newImage('Graphics/Dev Files/Dialogbox.png')
+	View.DialogBox = love.graphics.newImage('Graphics/Dev Files/Dialogbox.png')
 	
 end
 
@@ -68,9 +68,11 @@ function love.draw(dt)
 	if Menu then Menu:drawMenu() end
 	
 	drawInGame()
-		
+	
+	love.graphics.setColor(126,126,126)
 	love.graphics.print('Memory actually used (in kB): ' .. math.ceil(collectgarbage('count')), 10,10)
 	collectgarbage('collect')
+	if Camera then love.graphics.print(Camera.DestX, 100,100) end
 end
 
 function love.quit()

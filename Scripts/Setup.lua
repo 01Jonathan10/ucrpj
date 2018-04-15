@@ -7,12 +7,9 @@ LoadedChars 	= {}
 Map 			= {}
 MapImgs			= {}
 NewCharacter	= {}
-CharCBot		= {}
-CharCTop		= {}
-CharFace		= {}
-CharHair		= {}
 TextData		= {}
 Player 			= {}
+View			= {}
 
 loadSaveFiles()
 loadDialogs()

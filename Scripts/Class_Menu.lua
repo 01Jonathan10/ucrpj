@@ -6,6 +6,8 @@ require ('SubmenuScripts')
 require ('SubmenuDraw')
 
 function MenuClass.BuildMenu()
+	local _,_,Mode = love.window.getMode()
+	
 	Menu = {
 		Submenu = 0, 
 		SelectMenu = 1, 
@@ -15,6 +17,7 @@ function MenuClass.BuildMenu()
 		MasterV = 100*love.audio.getVolume(),
 		VControl = true,
 		Changing = nil,
+		FullScreen = Mode.fullscreen,
 		CharImg = {Hair = {}, CTop = {}, CBot = {}, Face = {}},
 		LoadQueue = 0,
 	}
@@ -60,19 +63,21 @@ function MenuClass:LoadFromQueue()
 end
 
 function MenuClass:SetupMenu(Select)
+	local _,_,Mode = love.window.getMode()
 	local Select = Select or 1
 	self.SelectMenu = Select
 	self.Erasing_File = false
 	self.TypingName = false
 	self.MasterV = 100*love.audio.getVolume()
+	self.FullScreen = Mode.fullscreen
 	self.Cred = false
 end
 
 function MenuClass:drawMenu()
 	if self.Cred then
-		love.graphics.draw(self.Imgs.CredImg, 0, 0)
+		love.graphics.draw(self.Imgs.CredImg, -800, 0)
 	else
-		love.graphics.draw(self.Imgs[self.Submenu], 0, 0)
+		love.graphics.draw(self.Imgs[self.Submenu], -800, 0)
 		if self.Submenu == 0 then
 			mainMenuDraw()
 		elseif self.Submenu == 1 then

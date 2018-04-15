@@ -51,6 +51,26 @@ function Utils.PrintTb(tb)
 	print ("}")
 end
 
+function Utils.PrintTbRec(tb, depth)
+	local depth = depth or 0
+	local pref = "\t"
+	for i=1,depth do
+		pref = pref.."\t"
+	end
+	
+	if not tb then print ("nil") return end
+	print (pref:sub(1,-2).."{")
+	for key, value in pairs(tb) do	
+		if type(value) == "table" then
+			print (pref..key.." :")
+			Utils.PrintTbRec(value, depth + 1)
+		else
+			print (pref..key.." : "..tostring(value))
+		end
+	end
+	print (pref:sub(1,-2).."}")
+end
+
 function Utils.table_to_string(tbl)
     local result = "{"
     for k, v in pairs(tbl) do
