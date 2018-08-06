@@ -1,9 +1,7 @@
 function CanMove(coordinates)
 	Position = Map[coordinates.y][coordinates.x]
 	
-	if hasCharacter(coordinates) then return false end
-	
-	return Position=="0" or Position:find("W") ~= nil or Position:find("E") ~= nil
+	return CanNPCMove(coordinates) or Position:find("E") ~= nil
 end
 
 function CanNPCMove(coordinates)
@@ -15,12 +13,12 @@ function CanNPCMove(coordinates)
 end
 
 function hasCharacter(coordinates)
-	return Map.CharacterPos[coordinates.y][coordinates.x] ~= nil
+	return Map.char_grid[coordinates.y][coordinates.x] ~= nil
 end
 
 function GetCharacterById(id)
-	if SceneNPCs[Map.Number][id] then
-		return SceneNPCs[Map.Number][id]
+	if GameController.world.area.NPCs[Map.id][id] then
+		return GameController.world.area.NPCs[Map.id][id]
 	end
 	return nil
 end

@@ -1,41 +1,48 @@
-function GSubmenuDraw()
-	local GSubMenuSwitch = {InventoryDraw, EquipDraw, FriendsDraw, TodoDraw, SubOptionsDraw}
-	GSubMenuSwitch[GMenu.Submenu]()
+function GMenu:submenu_draw()
+	local draw_functions = {
+		[Constants.EnumInGameSubmenu.INVENTORY] = function() self:inventory_draw() end,
+		[Constants.EnumInGameSubmenu.EQUIPMENT] = function() self:equip_draw() end,
+		[Constants.EnumInGameSubmenu.FRIENDS] = function() self:friends_draw() end,
+		[Constants.EnumInGameSubmenu.TODO] = function() self:todo_draw() end,
+		[Constants.EnumInGameSubmenu.OPTIONS] = function() self:options_draw() end,
+	}
+	
+	if draw_functions[self.submenu] then draw_functions[self.submenu]() end
 end
 
-function InventoryDraw()
-	love.graphics.draw(GMenu.Imgs[1], -800, 0)
+function GMenu:inventory_draw()
+	ViewClass.draw(self.images[1], -800, 0)
 	local i = 1
-	for id, ammount in pairs(Player.Inventory.contents) do
+	for id, ammount in pairs(GameController.player.Inventory.contents) do
 		local item = ItemData[id]
 		local x = 50 + math.floor((i-1)/3)*800
 		local y = 270 + math.floor((i-1)%3)*300
-		love.graphics.draw(item.Img, x, y)
-		love.graphics.print(item.Name, x + 250, y)
-		love.graphics.printf(item.Description, x + 250, y + 50, 450)
-		love.graphics.printf(ammount, x, y + 170, 200, "right")
+		ViewClass.draw(item.Img, x, y)
+		ViewClass.print(item.Name, x + 250, y)
+		ViewClass.printf(item.Description, x + 250, y + 50, 450)
+		ViewClass.printf(ammount, x, y + 170, 200, "right")
 		i = i+1
 	end
 end
 
-function EquipDraw()
+function GMenu:equip_draw()
 
 end
 
-function FriendsDraw()
+function GMenu:friends_draw()
 
 end
 
-function TodoDraw()
+function GMenu:todo_draw()
 
 end
 
-function SubOptionsDraw()
-	love.graphics.draw(GMenu.Imgs[2], -800, 0)
-	if not GMenu.VControl then
-		love.graphics.draw(GMenu.Imgs.Selecao, 300, GMenu.SelectMenu*150+450)
+function GMenu:options_draw()
+	ViewClass.draw(self.images[2], -800, 0)
+	if not (self.option == 1) then
+		ViewClass.draw(self.images.select_img, 300, self.option*150+300)
 		love.graphics.setColor(126,126,126)		
 	end
-	love.graphics.draw(GMenu.Imgs.Selecao, 370+630*(GMenu.MasterV/100), 380)
+	ViewClass.draw(self.images.select_img, 370+630*(self.MasterV/100), 380)
 	love.graphics.setColor(255,255,255)
 end

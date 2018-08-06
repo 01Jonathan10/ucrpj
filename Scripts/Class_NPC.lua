@@ -1,12 +1,11 @@
-NPC = Utils.inheritsFrom( CharacterClass )
+NPC = Utils.inheritsFrom( Character )
 NPC.__index = NPC
-SceneNPCs = {}
 
 local Behaviors = love.filesystem.load( 'Scripts/NPCBehaviors.lua' )()
 
-function NPC.create(charArgs, MapNo)
+function NPC.create(charArgs)
 	local npc = {
-		Name = charArgs.Name,
+		name = charArgs.name,
 		Id = charArgs.Id,
 		Mood = charArgs.mood or 1,
 		
@@ -17,56 +16,57 @@ function NPC.create(charArgs, MapNo)
 		Speed = 5,
 		Facing = 1,
 		
-		Hair = charArgs.Hair,
-		CBot = charArgs.CBot,
-		Face = charArgs.Face,
-		CTop = charArgs.CTop,
+		looks = {
+			Hair = charArgs.looks.Hair,
+			CBot = charArgs.looks.CBot,
+			Face = charArgs.looks.Face,
+			CTop = charArgs.looks.CTop,
+		},
 		
-		Behavior = charArgs.Behavior or 0,
+		behavior = charArgs.Behavior or 0,
 		OverMove = "none",
 		Timer = 0,
 		TimerLimit = math.random()*5,
 		Locked = false,
 		
-		CharSpt = {}, 
+		CharSpt = {},
 	}
 	
-	SceneNPCs[MapNo or Map.Number][npc.Id] = npc
-	Map.CharacterPos[npc.Pygrid + 1][npc.Pxgrid] = npc
+	local map = MapClass.get_active()
+	
+	GameController.world.area.NPCs[map.id][npc.Id] = npc
+	map.char_grid[npc.Pygrid + 1][npc.Pxgrid] = npc
 	
 	setmetatable(npc,NPC)
 	
 	npc:loadSprites()
-		
+
 	return npc
 end
 
 function NPC:BehaviorCall(dt)
-	if not self.Path then
-		Behaviors[self.Behavior](self, dt)
-	end
+	-- if not self.Path then
+		-- Behaviors[self.Behavior](self, dt)
+	-- end
 end
 
-function ClearNPCs(MapNo)
-	SceneNPCs[MapNo] = {cleared = true}
-end
-
-function NPC.createRandom(Pxgrid, Pygrid, behavior, MapNo)
+function NPC.createRandom(Pxgrid, Pygrid, behavior)
 	local npc = {
-		Name = "Rose Lalonde",
+		name = "Rose Lalonde",
 		Id = '0',
 		Mood = 1,
 		
 		Px = Pxgrid, 
 		Py = Pygrid,
 		
-		Hair = 2,
-		CBot = 1,
-		Face = 1,
-		CTop = 1,
-		
-		Behavior = behavior,
+		looks = {
+			Hair = 2,
+			CBot = 1,
+			Face = 1,
+			CTop = 1,
+		},
+		behavior = behavior,
 	}
 		
-	return NPC.create(npc, MapNo)
+	return NPC.create(npc)
 end

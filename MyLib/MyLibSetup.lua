@@ -1,41 +1,51 @@
-MyLib.lockControls = false
+MyLib.lock_controls = false
 
 function MyLib.MyLibSetup()
 	local loveUpdate = love.update
-	love.update = function(dt)
-		MyLib.ApplyFades(dt)
-		loveUpdate(dt)
-		MyLib.KeyRefresh()
+	if loveUpdate then
+		love.update = function(dt)
+			MyLib.ApplyFades(dt)
+			loveUpdate(dt)
+			MyLib.KeyRefresh()
+		end
 	end
 
 	local loveDraw = love.draw
-	love.draw = function(dt)
-		loveDraw(dt)
-		MyLib.DrawFades()
+	if loveDraw then
+		love.draw = function(dt)
+			loveDraw(dt)
+			MyLib.DrawFades()
+		end
 	end
 
 	local loveKeyPress = love.keypressed
-	love.keypressed = function(key)
-		if MyLib.lockControls then
-			return
+	if loveKeyPress then
+		love.keypressed = function(key)
+			if MyLib.lock_controls then
+				return
+			end
+			MyLib.key_list = MyLib.KeyPress(key)
+			loveKeyPress(key)
 		end
-		KeyList = MyLib.KeyPress(key)
-		loveKeyPress(key)
 	end
 
 	local loveMousePress = love.mousepressed
-	love.mousepressed = function(X, Y, K)
-		if MyLib.lockControls then
-			return
+	if loveMousePress then
+		love.mousepressed = function(X, Y, K)
+			if MyLib.lock_controls then
+				return
+			end
+			loveMousePress(X, Y, K)
 		end
-		loveMousePress(X, Y, K)
 	end
 
 	local loveTextInput = love.textinput
-	love.textinput = function(text)
-		if MyLib.lockControls then
-			return
+	if loveTextInput then
+		love.textinput = function(text)
+			if MyLib.lock_controls then
+				return
+			end
+			loveTextInput(text)
 		end
-		loveTextInput(text)
 	end
 end

@@ -1,58 +1,53 @@
-KeyList = {}
-for k, _ in pairs({1,2,3,4,5,6,7,8,9}) do
-	if k==1 then
-		KeyList[k] = ""
-	else
-		KeyList[k] = false
-	end
+MyLib.key_list = {btn = ""}
+
+for k, _ in pairs({"confirm","escape","up","down","left","right"}) do
+	MyLib.key_list[k] = false
 end
 
 function MyLib.KeyPress(btn)
 
-	KeyList[1] = btn
+	MyLib.key_list.btn = btn
 
 	if (btn =="space" or btn == "return" or btn == "z") then
-		KeyList[2] = true
+		MyLib.key_list["confirm"] = true
 	end
 
 	if (btn == "escape") then
-		KeyList[3] = true
+		MyLib.key_list["escape"] = true
 	end
 
 	if (btn == "up" or btn == "w") then
-		KeyList[4] = true
+		MyLib.key_list["up"] = true
 	end
 
 	if (btn == "down" or btn == "s") then
-		KeyList[5] = true
+		MyLib.key_list["down"] = true
 	end
 
 	if (btn == "left" or btn == "a") then
-		KeyList[6] = true
+		MyLib.key_list["left"] = true
 	end
 
 	if (btn == "right" or btn == "d") then
-		KeyList[7] = true
+		MyLib.key_list["right"] = true
 	end
 	
-	return KeyList
+	return MyLib.key_list
 
 end
 
 function MyLib.KeyRefresh()
 
-	for k, _ in pairs(KeyList) do
-		if k==1 then
-			KeyList[k] = ""
-		else
-			KeyList[k] = false
-		end
+	MyLib.key_list = {btn = ""}
+
+	for k, _ in pairs({"confirm","escape","up","down","left","right"}) do
+		MyLib.key_list[k] = false
 	end
 
 end
 
 function MyLib.isKeyDown(...)
-	if not MyLib.lockControls then
+	if not MyLib.lock_controls then
 		return love.keyboard.isDown(...)
 	end
 	return false

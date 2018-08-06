@@ -1,5 +1,4 @@
 Utils = {}
-Utils.__index = Utils
 
 function Utils.mergeTables(FirstTable, SecondTable)
 	for k,v in pairs(SecondTable) do FirstTable[k] = v end
@@ -10,15 +9,16 @@ function Utils.CleanCheckID(Id)
 end
 
 function Utils:randomEmptySpace()
-	local y = math.random(1,Map.Ymax)
-	local x = math.random(1,Map.Xmax)
+	local map = MapClass.get_active()
+	local y = math.random(1,map.Ymax)
+	local x = math.random(1,map.Xmax)
 	
-	while Map[y+1][x] ~="0" do
-		y = math.random(1,Map.Ymax)
-		x = math.random(1,Map.Xmax)
+	while map[y][x] ~="0" do
+		y = math.random(1,map.Ymax)
+		x = math.random(1,map.Xmax)
 	end
 	
-	return x,y
+	return x, y-1
 end
 
 function Utils.inheritsFrom( baseClass )

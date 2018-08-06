@@ -1,8 +1,7 @@
-PlayerClass = Utils.inheritsFrom( CharacterClass )
-PlayerClass.__index = PlayerClass
+Player = Utils.inheritsFrom( Character )
+Player.__index = Player
 
-function PlayerClass.create(Pxgrid, Pygrid, args, SaveSlot)
-	local SaveSlot = SaveSlot or nil
+function Player.create(args)
 	local args = args or {}
 	
 	local player = { 
@@ -16,21 +15,19 @@ function PlayerClass.create(Pxgrid, Pygrid, args, SaveSlot)
 		Facing = 1, 
 		OverMove = 'none',
 		
-		Inventory = {contents = {}, limit = 10},
-		
-		SaveSlot = SaveSlot,	
+		Inventory = {contents = {}, limit = 10},		
 	}
 	
 	Utils.mergeTables(player,args)
-		
-	setmetatable(player,PlayerClass)
+			
+	setmetatable(player,Player)
 	
 	player:loadSprites()
 		
 	return player
 end
 
-function PlayerClass:Interact()
+function Player:Interact()
 	local coord = self:InFrontOfCoordinates()
 	local event = EventClass.getEvent(coord) or {}
 	
@@ -38,15 +35,15 @@ function PlayerClass:Interact()
 		event:beginEvent()
 		if event.single then EventClass.lockEvent(coord) end
 	elseif hasCharacter(coord) then
-		local character = Map.CharacterPos[coord.y][coord.x]
+		local character = Map.char_grid[coord.y][coord.x]
 		character.Facing = Utils.Opposite(self.Facing)
-		if Map.DialogsChar[character.Id] then
+		if Map.char_dialogs[character.Id] then
 			local content = nil
-			if Player.SeenDialogs[character.Id] then
-				content = Map.DialogsChar[character.Id].common
+			if GameController.player.SeenDialogs[character.Id] then
+				content = Map.char_dialogs[character.Id].common
 			else
-				content = Map.DialogsChar[character.Id].firstDialog
-				Player.SeenDialogs[character.Id] = true
+				content = Map.char_dialogs[character.Id].firstDialog
+				GameController.player.SeenDialogs[character.Id] = true
 			end
 			self:StartDialog(content, {character})
 		else
@@ -58,25 +55,26 @@ function PlayerClass:Interact()
 	end
 end
 
-function PlayerClass:StartChecking(id)
+function Player:StartChecking(id)
 	MyLib.KeyRefresh()
-	self:StartDialog(Map.DialogsChk[id])
+	self:StartDialog(Map.check_dialogs[id])
 end
 
-function PlayerClass:StartDialogChar(Character)
-	DialogID = math.random(1, table.getn(TextData.SmallTalk[Character.Mood]))
-	self:StartDialog(TextData.SmallTalk[Character.Mood][DialogID], {Character})
+function Player:StartDialogChar(character)
+	DialogID = math.random(1, table.getn(TextData.SmallTalk[character.Mood]))
+	self:StartDialog(TextData.SmallTalk[character.Mood][DialogID], {character})
 end
 
-function PlayerClass:StartDialog(content, charList)
+function Player:StartDialog(content, charList)
 	local charList = charList or {}
 	for _, eachChar in pairs(charList) do eachChar.Locked = true end
 	
-	self.CurrentDialog = {count = 1, content = content, characters = charList}
+	GameController.world.dialog = {count = 1, content = content, characters = charList}
+	GameController.world.state = Constants.EnumWorldState.DIALOG
 	MyLib.KeyRefresh()
 end
 
-function PlayerClass:GainItem(ItemID, Ammount)
+function Player:GainItem(ItemID, Ammount)
 	local Ammount = Ammount or 1
 	
 	if self.Inventory.contents[ItemID] then
@@ -86,24 +84,22 @@ function PlayerClass:GainItem(ItemID, Ammount)
 	self.Inventory.contents[ItemID] = Ammount
 end
 
-function PlayerClass:BlankCharacter()
+function Player:blank_character()
 	return {
 		gold = 0, 
-		level = 1, 
-		Name = '', 
-		Hair = 1, 
-		Face = 1, 
-		CTop = 1, 
-		CBot = 1,
+		level = 1,
+		name = '',
+		gender = Constants.EnumGender.FEMALE,
 		MetaData = {ItemsGot = {}},
 		ClearedEvents = {},
 		SeenDialogs = {},	
 		Day = 1,
 		Time = {6,0},
+		creating = true,
 	}
 end
 
-function PlayerClass:DoneMoving()
+function Player:DoneMoving()
 	local coord = {x=self.Pxgrid, y=self.Pygrid+1}
 	local event = EventClass.getEvent(coord)
 	if event then
@@ -113,6 +109,10 @@ function PlayerClass:DoneMoving()
 		end
 	end
 	
-	CharacterClass.DoneMoving(self)
+	Character.DoneMoving(self)
 	self.TimerLimit = nil
+end
+
+function Player:Wait(timedelta)
+	self.WaitTime = timedelta
 end

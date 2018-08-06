@@ -1,24 +1,4 @@
-require ('Functions_Map')
-require ('Functions_SaveLoad')
 require ('Functions_Characters')
-
-function BeginGame()
-	MyLib.FadeToColor(0.3,{"OverW", "Menu", "LuaCall>Player:DoneMoving()"},{true},"fill",{0,0,0,255},true)
-	
-	Camera = CameraClass.setup()
-	
-	if Player.MetaData.Number then 
-		loadMap(Player.MetaData.Number) 
-		Player:SetCharacterPosition(Player.MetaData .Px, Player.MetaData .Py) 
-	else loadMap(1) end
-	
-	Camera:setForceCameraPosition(Player)
-		
-	Player.CurrentDialog = nil
-	Battle = false
-	GMenuClass.BuildMenu()
-	MyLib.KeyRefresh()
-end
 
 function loadDialogs()
 	local mood = 1
@@ -164,7 +144,7 @@ function ToggleFullScreen(FS)
 	View.XOri = XOri
 	View.YOri = YOri
 	
-	if Camera then 
-		Camera:setForceCameraPosition(Player)
+	if View.camera then 
+		View.camera:setForceCameraPosition(GameController.player)
 	end
 end

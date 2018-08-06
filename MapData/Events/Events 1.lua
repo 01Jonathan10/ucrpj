@@ -8,15 +8,15 @@ return {
 				local content = {{value="Essa é uma máquina de doces"}, 
 								 {value="Já que ainda não tem mecânicas de dinheiro, eu vou pegar um..."},
 								}
-				Player:StartDialog(content)
+				GameController.player:StartDialog(content)
 			end,
 			function() 
-				Player:GainItem(2,1)
+				GameController.player:GainItem(2,1)
 				EventClass.triggerEvent()
 			end,
 			function() 
 				local content = {{value="Hmm, nem sei o sabor, vou guardar pra depois."}}
-				Player:StartDialog(content)
+				GameController.player:StartDialog(content)
 			end,
 		}
 	},
@@ -27,15 +27,15 @@ return {
 		queue = { 
 			function() 
 				local content = {{value="Urgh, que nojo."}}
-				Player:StartDialog(content)
+				GameController.player:StartDialog(content)
 			end,
 			function() 
-				Player.Speed = 15
-				Player:MoveToSpot(12,10)
+				GameController.player.Speed = 15
+				GameController.player:MoveToSpot(12,10)
 			end,
 			function() 
 				local content = {{value="Aquele lugar é um chiqueiro..."}}
-				Player:StartDialog(content)
+				GameController.player:StartDialog(content)
 			end,
 		}
 	},

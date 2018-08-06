@@ -32,10 +32,10 @@ MyLib.DrawFades()
 require ('KeyPressed')
 --[[ 
 
-global KeyList
+global MyLib.key_list
 
 MyLib.KeyPress(btn)
-*returns an array with variables {Key, Confirm, Cancel, Up, Down, Left, Right}
+*returns a table with variables {btn, confirm, escape, up, down, left, right}
 
 *Key is the pressed key
 *Confirm is either enter, space or Z
@@ -43,10 +43,10 @@ MyLib.KeyPress(btn)
 *Directions are either arrows or WASD
 
 MyLib.KeyRefresh()
-*clears all keyboard variables (Uses KeyList). Put on end of love.update
+*clears all keyboard variables (Uses MyLib.key_list). Put on end of love.update
 
-MyLib.KeyRefresh()
-*Calls love.keyboard.isDown(), but checking also MyLib.lockControls
+MyLib.IsKeyDown()
+*Calls love.keyboard.isDown(), but checking also MyLib.lock_controls
 
 ]]--
 

@@ -1,52 +1,43 @@
-function GSubmenuUpdate(dt)
-	local GSubMenuSwitch = {InventoryUpdate, EquipUpdate, FriendsUpdate, TodoUpdate, SubOptionsUpdate}
-	GSubMenuSwitch[GMenu.Submenu](dt)
+function GMenu:submenu_update(dt)
+	local update_functions = {
+		[Constants.EnumInGameSubmenu.INVENTORY] = function(dt) self:inventory_update(dt) end,
+		[Constants.EnumInGameSubmenu.EQUIPMENT] = function(dt) self:equip_update(dt) end,
+		[Constants.EnumInGameSubmenu.FRIENDS] = function(dt) self:friends_update(dt) end,
+		[Constants.EnumInGameSubmenu.TODO] = function(dt) self:todo_update(dt) end,
+		[Constants.EnumInGameSubmenu.OPTIONS] = function(dt) self:options_update(dt) end,
+	}
+	
+	if update_functions[self.submenu] then update_functions[self.submenu](dt) end
 end
 
-function InventoryUpdate()
+function GMenu:inventory_update()
 	
 end
 
-function EquipUpdate()
+function GMenu:equip_update()
 
 end
 
-function FriendsUpdate()
+function GMenu:friends_update()
 
 end
 
-function TodoUpdate()
+function GMenu:todo_update()
 
 end
 
-function SubOptionsUpdate(dt)
-	love.audio.setVolume(GMenu.MasterV/100)
+function GMenu:options_update(dt)
+	self.MasterV = 100*love.audio.getVolume()
 	
-	GMenu.SelectMenu = GMenu.SelectMenu % 4
-	GMenu.VControl = (GMenu.SelectMenu == 0)
-
-	if MyLib.isKeyDown('right','d') and GMenu.VControl then
-		if GMenu.MasterV < 100 then
-			GMenu.MasterV = GMenu.MasterV + 60*dt
+	if MyLib.isKeyDown('right','d') and self.option == 1 then
+		if self.MasterV < 100 then
+			self.MasterV = self.MasterV + 60*dt
 		end
-	elseif MyLib.isKeyDown('left','a') and GMenu.VControl then
-		if GMenu.MasterV > 0 then
-			GMenu.MasterV = GMenu.MasterV - 60*dt
-		end
-	elseif KeyList[5] then
-		MyLib.KeyRefresh()
-		GMenu.SelectMenu = GMenu.SelectMenu + 1
-	elseif KeyList[4] then
-		MyLib.KeyRefresh()
-		GMenu.SelectMenu = GMenu.SelectMenu - 1
-	elseif KeyList[2] and not GMenu.VControl then
-		if GMenu.SelectMenu == 2 then
-			GMenu.FullScreen = not GMenu.FullScreen
-			ToggleFullScreen(GMenu.FullScreen)
-		elseif GMenu.SelectMenu == 3 then
-			GMenu.SelectMenu = 5
-			GMenu.Submenu = nil
-			MyLib.KeyRefresh()
+	elseif MyLib.isKeyDown('left','a') and self.option == 1 then
+		if self.MasterV > 0 then
+			self.MasterV = self.MasterV - 60*dt
 		end
 	end
+	
+	love.audio.setVolume(self.MasterV/100)
 end
